@@ -15,10 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
+from core import views
 
 urlpatterns = [
     #path('polls/', include('polls.urls')),
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
+    #path('home/', views.home, name="home"),
     path('admin/', admin.site.urls),
+    path('login/', views.login, name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('social-auth/', include('social_django.urls', namespace='social')),
 ]

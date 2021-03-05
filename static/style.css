@@ -20,8 +20,13 @@ input {
 
 nav {
     background: rgba(255, 255, 255, 0.8);
+    display: flex;
 }
 
+#welcome {
+    flex: 1;
+    text-align: right;
+}
 
 #main {
     padding: 0 2em;
