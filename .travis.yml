@@ -1,0 +1,14 @@
+language: python
+python:
+- '3.8'
+install:
+- pip install -r requirements-travis.txt
+script:
+- python manage.py test
+deploy:
+  provider: heroku
+  api_key: 
+    secure: k)9$&v2n*&p&2+sr5le8y^w=z1jfxd!5!yx4wz377_!uoq9k$y
+  app: netconnect
+  on:
+    repo: uva-cs3240-s21/project-b-20
