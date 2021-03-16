@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
-import django_heroku
 
 from pathlib import Path
 
@@ -169,5 +168,9 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 )
-
-django_heroku.settings(locals())
+try{
+    import django_heroku
+    django_heroku.settings(locals())
+}
+except{
+}
