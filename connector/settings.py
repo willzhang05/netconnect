@@ -168,9 +168,9 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 )
-try{
+try:
     import django_heroku
     django_heroku.settings(locals())
-}
-except{
-}
+
+except:
+
