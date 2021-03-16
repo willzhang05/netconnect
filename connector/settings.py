@@ -171,6 +171,6 @@ SOCIAL_AUTH_PIPELINE = (
 try:
     import django_heroku
     django_heroku.settings(locals())
-
 except:
+    pass
 
