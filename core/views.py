@@ -15,3 +15,8 @@ def profile(request):
 #@login_required
 #def home(request):
 #  return render(request, 'index.html')
+
+
+# def update_profile(request, user_id):
+#     user = User.objects.get(pk=user_id)
+#     user.save() 
