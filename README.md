@@ -1,5 +1,5 @@
 # project-b-20
-project-b-20 created by GitHub Classroom hi
+project-b-20 created by GitHub Classroom
 
 ## Setting up dev environment ##
 
