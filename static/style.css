@@ -5,9 +5,11 @@ body {
     background: rgba(255, 255, 255, 0.8);
     display: flex;
     flex-direction: column;
-    padding: 2.5em;
-    margin-top: 5em;
-    border-radius: 1em;
+    padding: 2.5rem;
+    margin-top: 5rem;
+    border-radius: 0.5rem;
+    min-width: 25vw;
+    max-width: 50vw;
 }
 
 form > div {
@@ -18,9 +20,14 @@ input {
     cursor: pointer;
 }
 
+h1 {
+    text-align: center;
+}
+
 nav {
     background: rgba(255, 255, 255, 0.8);
     display: flex;
+    flex-direction: row;
 }
 
 #welcome {
@@ -29,27 +36,35 @@ nav {
 }
 
 #main {
-    padding: 0 2em;
     height: 100vh;
 }
 
 #content {
-    background: url('//live.staticflickr.com/970/27814594358_7f060bad81_k.jpg');
+    background: url('//live.staticflickr.com/4440/36039981420_6c72353d74_k.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     color: white;
     height: 100%;
-    padding: 1em;
+    margin: 0 3rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#content > div {
+    margin: 2rem;
 }
 
 footer {
     background: black;
     color: white;
     text-align: center;
-    padding: 1em;
+    padding: 1rem;
 }
 
 button {
     border: none;
+    outline: none;
 }

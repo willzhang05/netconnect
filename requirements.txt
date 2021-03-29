@@ -11,7 +11,8 @@ gunicorn==20.0.4
 idna==2.10
 oauth2-provider==0.0
 oauthlib==3.1.0
-psycopg2==2.7.7
+Pillow==8.1.2
+psycopg2-binary==2.8.6
 pycparser==2.20
 PyJWT==2.0.1
 python-social-auth==0.3.6

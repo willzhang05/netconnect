@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'core'
+    'core',
+    'users'
 ]
 
 
@@ -106,6 +107,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'users.CustomUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -155,6 +157,7 @@ LOGOUT_REDIRECT_URL = ''
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '791140102681-e2gsn6dkasm2psfj6evnmu6s5lnf9r35.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '4CHDcSM84mYFNiWnb9abazpu'
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/user.gender.read']
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_PIPELINE = (
@@ -167,10 +170,10 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
+    'connector.utils.create_profile',  # Custom pipeline
 )
 try:
     import django_heroku
     django_heroku.settings(locals())
 except:
     pass
-
