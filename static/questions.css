@@ -1,0 +1,19 @@
+.question {
+    color: black;
+}
+
+.question-title {
+    font-size: 3rem;
+}
+
+.question-prompt {
+}
+
+.question-body {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 0;
+}
+
+.question-next-button {
+}
