@@ -85,12 +85,3 @@ class CustomUserTestCase(TestCase):
         user2 = CustomUser()
         user2.guest_factor = 3
         assert user2.guest_factor == 3
-
-    def test_defaultValuesSleepLateFactor(self):
-        user1 = CustomUser()
-        assert user1.sleep_late_factor == 3
-
-    def test_changeValueSleepLateFactor(self):
-        user2 = CustomUser()
-        user2.sleep_late_factor = 5
-        assert user2.sleep_late_factor == 5
