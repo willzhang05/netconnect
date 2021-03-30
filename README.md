@@ -1,7 +1,7 @@
-# project-b-20
-project-b-20 created by GitHub Classroom
+# Roommate Connector - Team B-20
+Roommate Connector's matching algorithm helps to find you compatible roommates based on a variety of factors.
 
-## Setting up dev environment ##
+## Development ##
 
 * Install virtualenv
 `pip3 install virtualenv`
@@ -25,6 +25,9 @@ project-b-20 created by GitHub Classroom
 * To run the development server, run
 `python3 manage.py runserver`
 
-## Configuration ##
+* To create a superuser, run
+`python3 manage.py createsuperuser`
 
-* Use `pip3 freeze > requirements.txt` to maintain requirements
+## Maintaining Dependencies ##
+* Use `pip3 freeze > requirements.txt` to maintain requirements, if adding or removing dependencies
+* Make sure that `pkg-resources==0.0.0` is not present in `requirements.txt`
