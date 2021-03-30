@@ -15,6 +15,7 @@ def questionnaire(request):
 def profile(request):
     return render(request, 'profile.html')
 
+
 @login_required
 def map(request):
     return render(request, 'map.html')
