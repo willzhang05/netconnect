@@ -23,13 +23,13 @@ from users import views as users_views
 urlpatterns = [
     #path('polls/', include('polls.urls')),
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
-    #path('home/', views.home, name="home"),
+    path('', include('social_django.urls', namespace='social')),
     path('admin/', admin.site.urls),
     path('login/', views.login, name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page="home"), name='logout'),
     path('register/', users_views.register, name='register'),
-    path('', include('social_django.urls', namespace='social')),
     path('questionnaire/', views.questionnaire, name='questionnaire'),
+    path('map/', views.map, name="map"),
     path('profile/', views.profile, name='profile')
 
 

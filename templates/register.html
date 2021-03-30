@@ -4,7 +4,7 @@
 {% block content %}
 <div id="content">
     <div class="card">
-        <h1>Sign Up</h1>
+        <h1>Complete Registration</h1>
         <form method="post">
             {% csrf_token %}
             {% for field in form %}
@@ -19,7 +19,7 @@
                 </div>
                 {% endif %}
             {% endfor %}
-            <button class="btn btn-outline-primary" type="submit">Sign Up</button>
+            <button class="btn btn-outline-primary" type="submit">Register</button>
         </form>
     </div>
 </div>

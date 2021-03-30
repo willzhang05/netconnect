@@ -11,5 +11,5 @@ def register(request):
             form.save()
             return redirect('home')
     else:
-        form = CustomUserChangeForm()
+        form = CustomUserChangeForm(instance=request.user)
     return render(request, 'register.html', {'form': form})
