@@ -174,7 +174,8 @@ SOCIAL_AUTH_PIPELINE = (
     'connector.utils.create_profile',  # Custom pipeline
 )
 try:
-    import django_heroku
-    django_heroku.settings(locals())
+    if 'HEROKU' in os.environ:
+        import django_heroku
+        django_heroku.settings(locals())
 except:
     pass
