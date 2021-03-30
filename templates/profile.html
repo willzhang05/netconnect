@@ -5,5 +5,18 @@
 
 {% block content %}
 <div id="content">
-</div>
+      <div id="profile_data">
+          <h1>Name: {{user.full_name}}</h1>
+          <p>Gender: {{user.gender}}</p>
+          <p>Class Rank: {{user.class_rank}}</p>
+          <p>Political Views: {{user.politics}}</p>
+          <p>Major: {{user.major}}</p>
+          <p>Description: {{user.description}}</p>
+          <p>Tidiness: {{user.tidiness_factor}}</p>
+          <p>Partying: {{user.party_factor}}</p>
+          <p>Guests: {{user.guest_factor}}</p>
+          <p>Sleep: {{user.sleep_late_factor}}</p>
+          <img src = {{user.picture}} alt = "Imgage of user">
+      </div>
+    </div>
 {% endblock %}
