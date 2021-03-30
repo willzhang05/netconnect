@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load filters %}
+
+{% block content %}
+<div id="content">
+    <div class="card">
+        <h1>Sign Up</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.html_name != "full_name" and field.html_name != "password" and field.html_name != "password1" and field.html_name != "password2" %}
+                <div class="form-group">
+                    {{ field.errors }}
+                    <label for="{{ field.label }}">{{ field.label }}</label>
+                    {{ field|add_class:'form-control' }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+            <button class="btn btn-outline-primary" type="submit">Sign Up</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

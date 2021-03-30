@@ -18,6 +18,7 @@ from django.urls import include, path
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
 from core import views
+from users import views as users_views
 
 urlpatterns = [
     #path('polls/', include('polls.urls')),
@@ -26,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', views.login, name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page="home"), name='logout'),
+    path('register/', users_views.register, name='register'),
     path('', include('social_django.urls', namespace='social')),
     path('questionnaire/', views.questionnaire, name='questionnaire'),
     path('profile/', views.profile, name='profile')

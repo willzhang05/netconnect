@@ -10,7 +10,9 @@ body {
     border-radius: 0.5rem;
     min-width: 25vw;
     max-width: 50vw;
+    color: black;
 }
+
 
 form > div {
     margin: 1em;
@@ -36,7 +38,8 @@ nav {
 }
 
 #main {
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
 }
 
 #content {
@@ -45,6 +48,7 @@ nav {
     background-position: center;
     background-repeat: no-repeat;
     color: white;
+    min-height: 100vh;
     height: 100%;
     margin: 0 3rem;
     border-radius: 0.5rem 0.5rem 0 0;

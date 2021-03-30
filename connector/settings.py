@@ -159,6 +159,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '791140102681-e2gsn6dkasm2psfj6evnmu6s5lnf9r35.a
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '4CHDcSM84mYFNiWnb9abazpu'
 #SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/user.gender.read']
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = 'register'
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
