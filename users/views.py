@@ -4,6 +4,14 @@ from .forms import CustomUserChangeForm
 from django.contrib.auth.decorators import login_required
 
 
+def questionnaire(request):
+    return render(request, 'questionnaire.html')
+
+
+def profile(request):
+    return render(request, 'profile.html')
+
+
 @login_required
 def register(request):
     if request.method == 'POST':
@@ -14,3 +22,8 @@ def register(request):
     else:
         form = CustomUserChangeForm(instance=request.user)
     return render(request, 'register.html', {'form': form})
+
+
+# def update_profile(request, user_id):
+#     user = User.objects.get(pk=user_id)
+#     user.save()

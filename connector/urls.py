@@ -25,12 +25,10 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('', include('social_django.urls', namespace='social')),
     path('admin/', admin.site.urls),
+    path('map/', views.map, name="map"),
     path('login/', views.login, name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page="home"), name='logout'),
+    path('questionnaire/', users_views.questionnaire, name='questionnaire'),
+    path('profile/', users_views.profile, name='profile'),
     path('register/', users_views.register, name='register'),
-    path('questionnaire/', views.questionnaire, name='questionnaire'),
-    path('map/', views.map, name="map"),
-    path('profile/', views.profile, name='profile')
-
-
 ]

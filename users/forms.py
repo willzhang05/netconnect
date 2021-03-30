@@ -9,11 +9,13 @@ CUSTOM_USER_FIELDS = (
     'major',
     'picture',
     'description',
+    'roommates',
+    'semesters',
+    'bedtime',
     'politics',
     'tidiness_factor',
     'party_factor',
     'guest_factor',
-    'sleep_late_factor',
 )
 
 

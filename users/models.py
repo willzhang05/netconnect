@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -39,6 +40,11 @@ class CustomUser(AbstractUser):
     picture = models.ImageField(blank=True)
     description = models.TextField(max_length=300, blank=True)
 
+    roommates = models.IntegerField(default=1, validators=[MinValueValidator(1)])
+    semesters = models.IntegerField(default=2, validators=[MinValueValidator(1)])  
+
+    bedtime = models.TimeField(default=datetime.time(0, 0, 0))
+
     politics = models.CharField(
         max_length=1, choices=POLITICAL_VIEW_CHOICES, default='U')
     tidiness_factor = models.IntegerField(
@@ -46,6 +52,4 @@ class CustomUser(AbstractUser):
     party_factor = models.IntegerField(
         default=3, validators=[MaxValueValidator(5), MinValueValidator(1)])
     guest_factor = models.IntegerField(
-        default=3, validators=[MaxValueValidator(5), MinValueValidator(1)])
-    sleep_late_factor = models.IntegerField(
         default=3, validators=[MaxValueValidator(5), MinValueValidator(1)])
