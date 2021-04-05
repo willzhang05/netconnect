@@ -1,14 +1,24 @@
 {% extends 'base.html' %}
 {% load filters %}
 
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+{% endblock %}
+
 {% block content %}
 <div id="content">
     <div class="card">
         <h1>Complete Registration</h1>
-        <form method="post">
-            {% csrf_token %}
+        <div id="image-slider" class="splide">
+            <form method="post">
+                {% csrf_token %}
+            <div class="splide__track">
+            <ul class="splide__list">
             {% for field in form %}
                 {% if field.html_name != "password" and field.html_name != "password1" and field.html_name != "password2" %}
+                <li class="splide__slide">
                 <div class="form-group">
                     {{ field.errors }}
                     <label for="{{ field.label }}">{{ field.label }}</label>
@@ -17,10 +27,21 @@
                         <small class="form-text text-muted">{{ field.help_text|safe }}</small>
                     {% endif %}
                 </div>
+                </li>
                 {% endif %}
             {% endfor %}
+            <li class="splide__slide">
             <button class="btn btn-outline-primary" type="submit">Register</button>
-        </form>
+            </li>
+            </ul>
+            </div>
+            </form>
+        </div>
     </div>
 </div>
+<script>
+document.addEventListener( 'DOMContentLoaded', function () {
+    new Splide( '#image-slider', { start: 0 } ).mount();
+} );
+</script>
 {% endblock %}

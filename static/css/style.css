@@ -72,3 +72,8 @@ button {
     border: none;
     outline: none;
 }
+
+.splide__arrow:disabled {
+    display: none;
+}
+
