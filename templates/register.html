@@ -14,27 +14,25 @@
         <div id="image-slider" class="splide">
             <form method="post">
                 {% csrf_token %}
-            <div class="splide__track">
-            <ul class="splide__list">
-            {% for field in form %}
-                {% if field.html_name != "password" and field.html_name != "password1" and field.html_name != "password2" %}
-                <li class="splide__slide">
-                <div class="form-group">
-                    {{ field.errors }}
-                    <label for="{{ field.label }}">{{ field.label }}</label>
-                    {{ field|add_class:'form-control' }}
-                    {% if field.help_text %}
-                        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
-                    {% endif %}
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        {% for field in profile_form %}
+                            <li class="splide__slide">
+                            <div class="form-group">
+                                {{ field.errors }}
+                                <label for="{{ field.label }}">{{ field.label }}</label>
+                                {{ field|add_class:'form-control' }}
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                                {% endif %}
+                            </div>
+                            </li>
+                        {% endfor %}
+                        <li class="splide__slide">
+                            <button class="btn btn-outline-primary" type="submit">Register</button>
+                        </li>
+                    </ul>
                 </div>
-                </li>
-                {% endif %}
-            {% endfor %}
-            <li class="splide__slide">
-            <button class="btn btn-outline-primary" type="submit">Register</button>
-            </li>
-            </ul>
-            </div>
             </form>
         </div>
     </div>

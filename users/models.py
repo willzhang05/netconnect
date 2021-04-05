@@ -1,6 +1,9 @@
 import datetime
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User, AbstractUser
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -28,8 +31,9 @@ POLITICAL_VIEW_CHOICES = (
 )
 
 
-class CustomUser(AbstractUser):
-    full_name = models.CharField(max_length=200)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    #full_name = models.CharField(max_length=200)
     gender = models.CharField(
         max_length=1, choices=GENDER_CHOICES, default='U')
 
@@ -40,8 +44,10 @@ class CustomUser(AbstractUser):
     picture = models.ImageField(blank=True)
     description = models.TextField(max_length=300, blank=True)
 
-    roommates = models.IntegerField(default=1, validators=[MinValueValidator(1)])
-    semesters = models.IntegerField(default=2, validators=[MinValueValidator(1)])  
+    roommates = models.IntegerField(
+        default=1, validators=[MinValueValidator(1)])
+    semesters = models.IntegerField(
+        default=2, validators=[MinValueValidator(1)])
 
     bedtime = models.TimeField(default=datetime.time(0, 0, 0))
 
@@ -53,3 +59,17 @@ class CustomUser(AbstractUser):
         default=3, validators=[MaxValueValidator(5), MinValueValidator(1)])
     guest_factor = models.IntegerField(
         default=3, validators=[MaxValueValidator(5), MinValueValidator(1)])
+
+    def __str__(self):
+        return self.user.username
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()

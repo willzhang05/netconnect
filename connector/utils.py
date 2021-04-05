@@ -1,12 +1,13 @@
-from users.models import CustomUser
+from django.contrib.auth.models import User
+from users.models import Profile
 
 
 def create_profile(strategy, details, response, user, *args, **kwargs):
-    user = CustomUser.objects.filter(username=details['username']).first()
-    if not user:
-        user = CustomUser(username=details['username'])
-
-    user.full_name = details['fullname']
+    profile = Profile.objects.filter(user=user).first()
+    if not profile:
+        user = User(**details)
+        profile = Profile(user=user)
     user.save()
+    profile.save()
 
     return kwargs

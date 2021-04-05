@@ -1,21 +1,20 @@
 {% extends 'base.html' %}
 {% block title %}
     <title>Profile</title>
-{% endblock %}
+{% endblock %}  
+{% load filters %}
 
 {% block content %}
 <div id="content">
-      <div class="card">
-          <h1>Name: {{user.full_name}}</h1>
-          <p>Gender: {{user.get_gender_display}}</p>
-          <p>Class Rank: {{user.get_class_rank_display}}</p>
-          <p>Political Views: {{user.get_politics_display}}</p>
-          <p>Major: {{user.get_major_display}}</p>
-          <p>Description: {{user.get_description_display}}</p>
-          <p>Tidiness: {{user.tidiness_factor}}</p>
-          <p>Partying: {{user.party_factor}}</p>
-          <p>Guests: {{user.guest_factor}}</p>
-          <p>Sleep: {{user.sleep_late_factor}}</p>
-      </div>
+    <div class="card">
+        <h1>My Profile</h1>
+        {% for field in user_form %}
+                <span>{{field.label }}: {{ field.value|default_if_none:'Unknown' }}</span>
+            {% endfor %}
+        
+        {% for field in profile_form %}
+                <span>{{field.label }}: {{ field.value|default_if_none:'Unknown' }}</span>
+            {% endfor %}
     </div>
+</div>
 {% endblock %}
