@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_django',
     'core',
-    'users'
+    'users',
+    'storages'
 ]
 
 
@@ -173,6 +174,20 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
     'connector.utils.create_profile',  # Custom pipeline
 )
+
+AWS_ACCESS_KEY_ID = 'AKIATEYYM25EEF5HEZTW'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'b-20-bucket'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+MEDIA_URL = '/images/'
+
+
 try:
     if 'HEROKU' in os.environ:
         import django_heroku

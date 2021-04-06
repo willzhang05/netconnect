@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('gender', models.CharField(choices=[('F', 'Female'), ('M', 'Male'), ('O', 'Other'), ('U', 'Prefer not to say')], default='U', max_length=1)),
                 ('class_rank', models.CharField(choices=[('1', 'First Year'), ('2', 'Second Year'), ('3', 'Third Year'), ('4', 'Four Year'), ('G', 'Graduate Student'), ('U', 'Prefer not to say')], default='U', max_length=1)),
                 ('major', models.CharField(blank=True, max_length=50)),
-                ('picture', models.ImageField(blank=True, upload_to='')),
+                ('picture', models.ImageField(default='default.jpg', upload_to='profile_pics')),
                 ('description', models.TextField(blank=True, max_length=300)),
                 ('roommates', models.IntegerField(default=1, validators=[django.core.validators.MinValueValidator(1)])),
                 ('semesters', models.IntegerField(default=2, validators=[django.core.validators.MinValueValidator(1)])),
