@@ -29,3 +29,12 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = CUSTOM_USER_FIELDS
+        labels = {
+            # 'gender': 'test',
+            # 'class_rank': 'test',
+            # 'major': 'test',
+            # 'picture': 'test',
+            # 'description': 'test',
+            # 'roommates': 'test',
+            'politics': 'What political views do you most identify with?',
+        }

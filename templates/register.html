@@ -5,26 +5,27 @@
 {% block styles %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/questions.css' %}">
 {% endblock %}
 
 {% block content %}
 <div id="content">
+    <form method="post">
+        {% csrf_token %}
     <div class="card">
-        <h1>Complete Registration</h1>
+        <h1 class="question-title">Complete Registration</h1>
         <div id="image-slider" class="splide">
-            <form method="post">
-                {% csrf_token %}
                 <div class="splide__track">
                     <ul class="splide__list">
                         {% for field in profile_form %}
                             <li class="splide__slide">
-                            <div class="form-group">
-                                {{ field.errors }}
+                            <div class="form-group question-body">
                                 <label for="{{ field.label }}">{{ field.label }}</label>
                                 {{ field|add_class:'form-control' }}
                                 {% if field.help_text %}
                                     <small class="form-text text-muted">{{ field.help_text|safe }}</small>
                                 {% endif %}
+                                {{ field.errors }}
                             </div>
                             </li>
                         {% endfor %}
@@ -33,13 +34,13 @@
                         </li>
                     </ul>
                 </div>
-            </form>
         </div>
     </div>
+    </form>
 </div>
 <script>
 document.addEventListener( 'DOMContentLoaded', function () {
-    new Splide( '#image-slider', { start: 0 } ).mount();
+    new Splide( '#image-slider', { speed: 200, } ).mount();
 } );
 </script>
 {% endblock %}

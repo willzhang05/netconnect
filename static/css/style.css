@@ -10,6 +10,7 @@ body {
     border-radius: 0.5rem;
     min-width: 25vw;
     max-width: 50vw;
+    height: 100%;
     color: black;
 }
 
@@ -71,6 +72,12 @@ footer {
 button {
     border: none;
     outline: none;
+}
+
+.splide__slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .splide__arrow:disabled {
