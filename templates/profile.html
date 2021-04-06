@@ -8,7 +8,7 @@
 <div id="content">
     <div class="card">
         <h1>My Profile</h1>
-        <img class="profile-pic" src="{{user.profile.picture.url}}" alt="profile image">
+        <img src="{{ request.user.profile.get_photo_url }}" alt="Profile picture"/>
         {% for field in user_form %}
                 <span>{{field.label }}: {{ field.value|default_if_none:'Unknown' }}</span>
             {% endfor %}
