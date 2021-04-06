@@ -67,7 +67,7 @@ class Profile(models.Model):
     @property
     def get_photo_url(self):
         if self.picture and hasattr(self.picture, 'url'):
-            return self.photo.url
+            return self.picture.url
         else:
             return "/static/img/default.jpg"
 
