@@ -41,7 +41,7 @@ class Profile(models.Model):
         max_length=1, choices=CLASS_RANK_CHOICES, default='U')
 
     major = models.CharField(max_length=50, blank=True)
-    picture = models.ImageField(blank=True)
+    picture = models.ImageField(default='default.jpg', upload_to='')
     description = models.TextField(max_length=300, blank=True)
 
     roommates = models.IntegerField(
