@@ -1,10 +1,11 @@
 from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.contrib import messages
 from django.db import transaction
 from .forms import UserForm, ProfileForm, RegisterForm
+from django.contrib.auth.models import User
 
 
 def questionnaire(request):
@@ -17,6 +18,12 @@ def profile(request):
     profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
+@login_required
+def view_other(request, person_name):
+    user1 = User.objects.get(username = person_name)
+    user_form = UserForm(instance=request.user)
+    profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
 @login_required
 @transaction.atomic
