@@ -5,41 +5,42 @@
 {% block styles %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/questions.css' %}">
 {% endblock %}
 
 {% block content %}
 <div id="content">
-    <div class="card">
-        <h1>Complete Registration</h1>
-        <div id="image-slider" class="splide">
-            <form method="post">
-                {% csrf_token %}
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        {% for field in profile_form %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card">
+            <h1 class="question-title">Complete Registration</h1>
+            <div id="image-slider" class="splide">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            {% for field in form %}
+                                <li class="splide__slide">
+                                <div class="form-group question-body">
+                                    <label for="{{ field.label }}">{{ field.label }}</label>
+                                    {{ field|add_class:'form-control' }}
+                                    {% if field.help_text %}
+                                        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                                    {% endif %}
+                                    {{ field.errors }}
+                                </div>
+                                </li>
+                            {% endfor %}
                             <li class="splide__slide">
-                            <div class="form-group">
-                                {{ field.errors }}
-                                <label for="{{ field.label }}">{{ field.label }}</label>
-                                {{ field|add_class:'form-control' }}
-                                {% if field.help_text %}
-                                    <small class="form-text text-muted">{{ field.help_text|safe }}</small>
-                                {% endif %}
-                            </div>
+                                <button class="btn btn-outline-primary" type="submit">Register</button>
                             </li>
-                        {% endfor %}
-                        <li class="splide__slide">
-                            <button class="btn btn-outline-primary" type="submit">Register</button>
-                        </li>
-                    </ul>
-                </div>
-            </form>
+                        </ul>
+                    </div>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 <script>
 document.addEventListener( 'DOMContentLoaded', function () {
-    new Splide( '#image-slider', { start: 0 } ).mount();
+    new Splide( '#image-slider', { speed: 200, } ).mount();
 } );
 </script>
 {% endblock %}

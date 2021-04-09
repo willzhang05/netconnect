@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.contrib import messages
 from django.db import transaction
-from .forms import UserForm, ProfileForm
+from .forms import UserForm, ProfileForm, RegisterForm
 
 
 def questionnaire(request):
@@ -22,16 +22,17 @@ def profile(request):
 @transaction.atomic
 def register(request):
     if request.method == 'POST':
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if profile_form.is_valid():
-            profile_form.save()
+        form = RegisterForm(request.POST, request.FILES,
+                            instance=request.user.profile)
+        if form.is_valid():
+            form.save()
             messages.success(request, 'Successfully registered.')
             return redirect('home')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
-        profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'register.html', {'profile_form': profile_form})
+        form = RegisterForm(instance=request.user.profile)
+    return render(request, 'register.html', {'form': form})
 
 
 @login_required

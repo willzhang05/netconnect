@@ -1,20 +1,28 @@
 {% extends 'base.html' %}
 {% block title %}
     <title>Profile</title>
-{% endblock %}  
+{% endblock %}
 {% load filters %}
+
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock %}
 
 {% block content %}
 <div id="content">
     <div class="card">
         <h1>My Profile</h1>
-        {% for field in user_form %}
-                <span>{{field.label }}: {{ field.value|default_if_none:'Unknown' }}</span>
+        <img id="profile-picture" class="rounded mx-auto d-block img-fluid" src="{{ request.user.profile.get_photo_url }}" alt="Profile picture"/>
+        <ul id="profile-fields" class="list-group list-group-flush">
+            {% for field in user_form %}
+                <li class="list-group-item">{{field.label }}: {{ field.value|default_if_none:'Unknown' }}</li>
             {% endfor %}
-        
-        {% for field in profile_form %}
-                <span>{{field.label }}: {{ field.value|default_if_none:'Unknown' }}</span>
+
+            {% for field in profile_form %}
+                <li class="list-group-item">{{field.label }}: {{ field.value|default_if_none:'Unknown' }}</li>
             {% endfor %}
+        </ul>
     </div>
 </div>
 {% endblock %}

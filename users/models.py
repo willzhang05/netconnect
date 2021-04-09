@@ -41,7 +41,8 @@ class Profile(models.Model):
         max_length=1, choices=CLASS_RANK_CHOICES, default='U')
 
     major = models.CharField(max_length=50, blank=True)
-    picture = models.ImageField(blank=True)
+    picture = models.ImageField(
+        default='default.jpg', upload_to='profile_pictures')
     description = models.TextField(max_length=300, blank=True)
 
     roommates = models.IntegerField(
@@ -62,6 +63,13 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    @property
+    def get_photo_url(self):
+        if self.picture and hasattr(self.picture, 'url'):
+            return self.picture.url
+        else:
+            return "/static/img/default.jpg"
 
 
 @receiver(post_save, sender=User)
