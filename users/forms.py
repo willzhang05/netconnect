@@ -29,12 +29,22 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = CUSTOM_USER_FIELDS
+
+
+class RegisterForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = CUSTOM_USER_FIELDS
         labels = {
-            # 'gender': 'test',
-            # 'class_rank': 'test',
-            # 'major': 'test',
-            # 'picture': 'test',
-            # 'description': 'test',
-            # 'roommates': 'test',
+            'class_rank': 'What year in school are you?',
+            'major': 'What\'s your major?',
+            'picture': 'Upload a profile picture!',
+            'description': 'Add any information about yourself you would like potential roommates to see.',
+            'roommates': 'How many roommates are you looking for?',
+            'semesters': 'For how many semesters are you looking to room?',
+            'bedtime': 'Around what time do you usually go to sleep?',
             'politics': 'What political views do you most identify with?',
+            'tidiness_factor': 'On a scale from 1-5, how organized/tidy would you consider yourself?',
+            'party_factor': 'On a scale from 1-5, how frequently do you go out/party?',
+            'guest_factor': 'On a scale from 1-5, how frequently would you like to have guests over?',
         }

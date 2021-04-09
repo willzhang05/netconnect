@@ -25,7 +25,9 @@
             <a class="nav-item nav-link" href="{% url 'logout' %}">
                 Logout
             </a>
-            <span id="welcome">Welcome {{ user.get_full_name }}!</span>
+            <a class"nav-item nav-link" id="welcome" href="{% url 'profile' %}">
+                Welcome {{ user.get_full_name }}!
+            </a>
             {% else %}
             <a class="nav-item nav-link" href="{% url 'login' %}">
                 Login
