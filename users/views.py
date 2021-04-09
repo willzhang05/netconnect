@@ -22,7 +22,7 @@ def profile(request):
 @transaction.atomic
 def register(request):
     if request.method == 'POST':
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if profile_form.is_valid():
             profile_form.save()
             messages.success(request, 'Successfully registered.')
@@ -32,7 +32,6 @@ def register(request):
     else:
         profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'register.html', {'profile_form': profile_form})
-
 
 @login_required
 @transaction.atomic

@@ -20,6 +20,9 @@ from django.views.generic.base import TemplateView
 from core import views
 from users import views as users_views
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     #path('polls/', include('polls.urls')),
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
@@ -31,4 +34,6 @@ urlpatterns = [
     path('questionnaire/', users_views.questionnaire, name='questionnaire'),
     path('profile/', users_views.profile, name='profile'),
     path('register/', users_views.register, name='register'),
+
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
