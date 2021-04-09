@@ -34,6 +34,6 @@ urlpatterns = [
     path('questionnaire/', users_views.questionnaire, name='questionnaire'),
     path('profile/', users_views.profile, name='profile'),
     path('register/', users_views.register, name='register'),
-
+    path('profile/<str:person_name>/', users_views.view_other, name = 'view_other'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
