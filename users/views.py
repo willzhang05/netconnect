@@ -21,8 +21,8 @@ def profile(request):
 @login_required
 def view_other(request, person_name):
     user1 = User.objects.get(username = person_name)
-    user_form = UserForm(instance=request.user)
-    profile_form = ProfileForm(instance=request.user.profile)
+    user_form = UserForm(instance=user1)
+    profile_form = ProfileForm(instance=user1.profile)
     return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
 @login_required
