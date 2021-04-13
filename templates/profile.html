@@ -15,7 +15,7 @@
         {% if not is_other %}
             <h1>My Profile</h1>
         {% endif %}
-        <img id="profile-picture" class="rounded mx-auto d-block img-fluid" src="{{ user.profile.get_photo_url }}" alt="Profile picture"/>
+        <img id="profile-picture" class="rounded mx-auto d-block img-fluid" src="{{ profile_form.instance.get_photo_url }}" alt="Profile picture"/>
         <ul id="profile-fields" class="list-group list-group-flush">
             {% for field in user_form %}
                 <li class="list-group-item">{{field.label }}: {{ field.value|default_if_none:'Unknown' }}</li>

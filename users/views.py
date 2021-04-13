@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 def profile(request):
     user_form = UserForm(instance=request.user)
     profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'user': request.user})
+    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
 
 @login_required
@@ -21,7 +21,7 @@ def view_other_profile(request, username):
     user_form = UserForm(instance=user)
     profile_form = ProfileForm(instance=user.profile)
     is_other = request.user != user
-    return render(request, 'profile.html', {'is_other': is_other, 'user_form': user_form, 'profile_form': profile_form, 'user': user})
+    return render(request, 'profile.html', {'is_other': is_other, 'user_form': user_form, 'profile_form': profile_form})
 
 
 @login_required
@@ -46,7 +46,8 @@ def register(request):
 def edit_profile(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        profile_form = ProfileForm(
+            request.POST, request.FILES, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
