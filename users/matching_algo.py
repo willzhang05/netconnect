@@ -12,12 +12,11 @@ def matching(a, b): # should take two profile objects, will return percentage ma
     total_points = total_points + (20 if a.major == b.major else 0)                     # major
     total_points = total_points + (400 if a.roommates == b.roommates else 0)            # roommates
     total_points = total_points + (300 if a.semesters == b.semesters else 0)            # semesters
-    # total_points = total_points + 20 - abs(a.bedtime - b.bedtime)/60/60                 # bedtime - note, this isn't very robust but essentially calculates hour difference in bedtimes to an extent that we need
     aTime = a.bedtime
     bTime = b.bedtime
     aSeconds = (aTime.hour * 60 + aTime.minute) * 60 + aTime.second
     bSeconds = (bTime.hour * 60 + bTime.minute) * 60 + bTime.second
-    total_points = total_points + 20 - abs((aSeconds - bSeconds))/60/60
+    total_points = total_points + 20 - abs((aSeconds - bSeconds))/60/60                 # bedtime - note, this isn't very robust but essentially calculates hour difference in bedtimes to an extent that we need
     total_points = total_points + 5*(4 - abs(a.tidiness_factor - b.tidiness_factor))    # tidiness
     total_points = total_points + 10*(4 - abs(a.party_factor - b.party_factor))         # party
     total_points = total_points + 7*(4 - abs(a.guest_factor - b.guest_factor))          # guest
