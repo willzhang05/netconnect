@@ -15,16 +15,28 @@
         {% if not is_other %}
             <h1>My Profile</h1>
         {% endif %}
-        <img id="profile-picture" class="rounded mx-auto d-block img-fluid" src="{{ profile_form.instance.get_photo_url }}" alt="Profile picture"/>
-        <ul id="profile-fields" class="list-group list-group-flush">
-            {% for field in user_form %}
-                <li class="list-group-item">{{field.label }}: {{ field.value|default_if_none:'Unknown' }}</li>
-            {% endfor %}
+        <div id="profile-picture-wrapper">
+            <div id="profile-picture">
+                <img class="img-fluid" src="{{ profile_form.instance.get_photo_url }}" alt="Profile picture"/>
+            </div>
+        </div>
+        <table id="profile-fields" class="table table-sm">
+            <tbody>
+                {% for field in user_form %}
+                    <tr>
+                        <th scope="row">{{ field.label }}</th>
+                        <td>{{ field.value|default_if_none:'Unknown' }}</td>
+                    </tr>
+                {% endfor %}
 
-            {% for field in profile_form %}
-                <li class="list-group-item">{{field.label }}: {{ field.value|default_if_none:'Unknown' }}</li>
-            {% endfor %}
-        </ul>
+                {% for field in profile_form %}
+                    <tr>
+                        <th scope="row">{{ field.label }}</th>
+                        <td>{{ field.value|default_if_none:'Unknown' }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         {% if not is_other %}
             <a href="{% url 'edit_profile' %}" class="next-slide">
                 <button class="btn btn-outline-primary" type="button">
