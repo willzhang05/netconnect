@@ -5,7 +5,7 @@
 <div id="content">
     <div class="card">
         <h1>Edit Profile</h1>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in user_form %}
                 <div class="form-group">
