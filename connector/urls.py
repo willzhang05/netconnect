@@ -31,9 +31,9 @@ urlpatterns = [
     path('map/', views.map, name="map"),
     path('login/', views.login, name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page="home"), name='logout'),
-    path('questionnaire/', users_views.questionnaire, name='questionnaire'),
-    path('profile/', users_views.profile, name='profile'),
     path('register/', users_views.register, name='register'),
-    path('profile/<str:person_name>/', users_views.view_other, name = 'view_other'),
+    path('profile/', users_views.profile, name='profile'),
+    path('profile/<str:username>/',
+         users_views.view_other_profile, name='view_other_profile'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
