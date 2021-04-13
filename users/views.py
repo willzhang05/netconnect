@@ -20,7 +20,8 @@ def view_other_profile(request, username):
     user = User.objects.get(username=username)
     user_form = UserForm(instance=user)
     profile_form = ProfileForm(instance=user.profile)
-    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    is_other = request.user != user
+    return render(request, 'profile.html', {'is_other': is_other, 'user_form': user_form, 'profile_form': profile_form})
 
 
 @login_required
@@ -42,7 +43,7 @@ def register(request):
 
 @login_required
 @transaction.atomic
-def update_profile(request):
+def edit_profile(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
@@ -56,4 +57,4 @@ def update_profile(request):
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
