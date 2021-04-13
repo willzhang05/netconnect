@@ -49,29 +49,29 @@ class ProfileTestCase(TestCase):
         profile2.description = "test description"
         assert profile2.description == "test description"
 
-    def test_default_value_tidinessFactor(self):
+    def test_default_value_tidiness_factor(self):
         profile1 = Profile()
         assert profile1.tidiness_factor == 3
 
-    def test_change_value_tidinessFactor(self):
+    def test_change_value_tidiness_factor(self):
         profile2 = Profile()
         profile2.tidiness_factor = 1
         assert profile2.tidiness_factor == 1
 
-    def test_default_value_partyFactor(self):
+    def test_default_value_party_factor(self):
         profile1 = Profile()
         assert profile1.party_factor == 3
 
-    def test_change_value_partyFactor(self):
+    def test_change_value_party_factor(self):
         profile2 = Profile()
         profile2.party_factor = 2
         assert profile2.party_factor == 2
 
-    def test_default_value_guestFactor(self):
+    def test_default_value_guest_factor(self):
         profile1 = Profile()
         assert profile1.guest_factor == 3
 
-    def test_change_value_guestFactor(self):
+    def test_change_value_guest_factor(self):
         profile2 = Profile()
         profile2.guest_factor = 3
         assert profile2.guest_factor == 3

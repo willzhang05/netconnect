@@ -3,8 +3,6 @@
 
 {% load static %}
 {% block styles %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'css/questions.css' %}">
 {% endblock %}
 
@@ -12,35 +10,42 @@
 <div id="content">
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="card">
-            <h1 class="question-title">Complete Registration</h1>
-            <div id="image-slider" class="splide">
-                    <div class="splide__track">
-                        <ul class="splide__list">
-                            {% for field in form %}
-                                <li class="splide__slide">
-                                <div class="form-group question-body">
-                                    <label for="{{ field.label }}">{{ field.label }}</label>
-                                    {{ field|add_class:'form-control' }}
-                                    {% if field.help_text %}
-                                        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
-                                    {% endif %}
-                                    {{ field.errors }}
-                                </div>
-                                </li>
-                            {% endfor %}
-                            <li class="splide__slide">
-                                <button class="btn btn-outline-primary" type="submit">Register</button>
-                            </li>
-                        </ul>
+        <div class="slider">
+            <div class="slides">
+                <div class="card slide" id="slide-intro">
+                    <h1>Welcome!</h1>
+                    <div class="question-prompt">
+                        Thanks for signing up with Roommate Connector. In order to match you with potential roommates, we need to collect some basic information about you.
                     </div>
+                    <a href="#slide0" class="next-slide">
+                        <button class="btn btn-outline-primary" type="button">
+                            Next
+                        </button>
+                    </a>
+                </div>
+                {% for field in form %}
+                    <div class="card slide" id="slide{{ forloop.counter0 }}">
+                        <div class="form-group question-body">
+                            <label for="{{ field.label }}" class="question-label">{{ field.label }}</label>
+                            {{ field|add_class:'form-control' }}
+                            {% if field.help_text %}
+                                <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                            {% endif %}
+                            {{ field.errors }}
+                        </div>
+                        {% if forloop.last %}
+                            <button class="btn btn-outline-primary" type="submit">Register</button>
+                        {% else %}
+                            <a href="#slide{{ forloop.counter }}" class="next-slide">
+                                <button class="btn btn-outline-primary" type="button">
+                                    Next
+                                </button>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </form>
 </div>
-<script>
-document.addEventListener( 'DOMContentLoaded', function () {
-    new Splide( '#image-slider', { speed: 200, } ).mount();
-} );
-</script>
 {% endblock %}
