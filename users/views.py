@@ -8,22 +8,20 @@ from .forms import UserForm, ProfileForm, RegisterForm
 from django.contrib.auth.models import User
 
 
-def questionnaire(request):
-    return render(request, 'questionnaire.html')
-
-
 @login_required
 def profile(request):
     user_form = UserForm(instance=request.user)
     profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
+
 @login_required
-def view_other(request, person_name):
-    user1 = User.objects.get(username = person_name)
-    user_form = UserForm(instance=user1)
-    profile_form = ProfileForm(instance=user1.profile)
+def view_other_profile(request, username):
+    user = User.objects.get(username=username)
+    user_form = UserForm(instance=user)
+    profile_form = ProfileForm(instance=user.profile)
     return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
 
 @login_required
 @transaction.atomic
