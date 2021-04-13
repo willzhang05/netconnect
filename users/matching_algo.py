@@ -1,4 +1,3 @@
-from models import Profile
 from .models import Profile
 import operator
 
@@ -22,11 +21,11 @@ def matching(a, b): # should take two profile objects, will return percentage ma
 
 def matchingsearch(a): # takes one profile and checks it with every other profile in the database, creates a dictionary listing for that profile and returns it
     all_profiles = Profile.objects.all()
-    dict = {}
+    dict1 = {}
     for x in all_profiles:
-        dict[x] = matching(a, x)
+        dict1[x] = matching(a, x)
     
     # sort dict in descending order
-    sorted_dict = dict(sorted(dict.items(), key=operator.itemgetter(1), reverse=True))
+    sorted_dict = dict(sorted(dict1.items(), key=operator.itemgetter(1), reverse=True))
     
     return sorted_dict
