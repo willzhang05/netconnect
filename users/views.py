@@ -21,8 +21,12 @@ def view_other_profile(request, username):
     user_form = UserForm(instance=user)
     profile_form = ProfileForm(instance=user.profile)
     is_other = request.user != user
-    return render(request, 'profile.html', {'is_other': is_other, 'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'profile2.html', {'is_other': is_other, 'user_form': user_form, 'profile_form': profile_form})
 
+@login_required
+def go_to_chat(request, username):
+    user = User.objects.get(username = username)
+    return render(request, 'profile2.html', {'user_form': user_form, 'profile_form': profile_form})
 
 @login_required
 @transaction.atomic

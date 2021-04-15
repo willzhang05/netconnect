@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Profile</title>
+{% endblock %}
+{% load filters %}
+
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="content">
+    <div class="card">
+        {% if not is_other %}
+            <h1>My Profile</h1>
+        {% endif %}
+        <div id="profile-picture-wrapper">
+            <div id="profile-picture">
+                <img class="img-fluid" src="{{ profile_form.instance.get_photo_url }}" alt="Profile picture"/>
+            </div>
+        </div>
+        <table id="profile-fields" class="table table-sm">
+            <tbody>
+                {% for field in user_form %}
+                    <tr>
+                        <th scope="row">{{ field.label }}</th>
+                        <td>{{ field.value|default_if_none:'Unknown' }}</td>
+                    </tr>
+                {% endfor %}
+
+                {% for field in profile_form %}
+                    <tr>
+                        <th scope="row">{{ field.label }}</th>
+                        <td>{{ field.value|default_if_none:'Unknown' }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+            <a href="{% url 'edit_profile' %}" class="next-slide">
+                <button class="btn btn-outline-primary" type="button">
+                    Chat With This Person
+                </button>
+            </a>
+        
+    </div>
+</div>
+{% endblock %}
