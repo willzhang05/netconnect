@@ -190,12 +190,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img')
 MEDIA_URL = '/img/'
 
 ASGI_APPLICATION = "connector.asgi.application"
+
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
     },
 }
 
