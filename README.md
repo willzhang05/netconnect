@@ -1,5 +1,5 @@
-# Roommate Connector - Team B-20 r
-Roommate Connector's matching algorithm helps to find you compatible roommates based on a variety of factors. m
+# Roommate Connector - Team B-20 
+Roommate Connector's matching algorithm helps to find you compatible roommates based on a variety of factors. 
 
 ## Development ##
 
