@@ -19,6 +19,7 @@ from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
 from core import views
 from users import views as users_views
+from chat import views as chat_views
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -35,6 +36,7 @@ urlpatterns = [
     path('profile/edit', users_views.edit_profile, name='edit_profile'),
     path('profile/<str:username>/',
          users_views.view_other_profile, name='view_other_profile'),
-    path('chat/<str:username>/', users_views.go_to_chat, name = 'go_to_chat')
+    path('chat/', chat_views.chat_index, name='chat_index'), #search by username page
+    path('chat/<str:username>/', chat_views.room, name='room'), #chat with user (if you know user, use this)
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
