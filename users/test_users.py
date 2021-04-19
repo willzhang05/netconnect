@@ -127,7 +127,7 @@ class ProfileTestCase(TestCase):
                                     'picture','description','roommates',
                                     'semesters','bedtime','politics',
                                     'tidiness_factor','party_factor',
-                                    'guest_factor')
+                                    'guest_factor', 'min_match_percentage')
 
     def test_default_model_ProfileForm(self):
         form = ProfileForm(ModelForm)
@@ -139,7 +139,7 @@ class ProfileTestCase(TestCase):
                                     'picture','description','roommates',
                                     'semesters','bedtime','politics',
                                     'tidiness_factor','party_factor',
-                                    'guest_factor')
+                                    'guest_factor', 'min_match_percentage')
 
     def test_default_model_RegisterForm(self):
         form = RegisterForm(ModelForm)

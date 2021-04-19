@@ -29,7 +29,8 @@ class UserForm(ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = [field.name for field in Profile._meta.get_fields()]
+        #fields = [field.name for field in Profile._meta.get_fields()]
+        fields = CUSTOM_USER_FIELDS
 
 
 class RegisterForm(ModelForm):
