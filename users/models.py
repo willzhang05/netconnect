@@ -7,6 +7,8 @@ from django.dispatch import receiver
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+from .matching import matching
+
 GENDER_CHOICES = (
     ('F', 'Female'),
     ('M', 'Male'),
@@ -18,7 +20,7 @@ CLASS_RANK_CHOICES = (
     ('1', 'First Year'),
     ('2', 'Second Year'),
     ('3', 'Third Year'),
-    ('4', 'Four Year'),
+    ('4', 'Fourth Year'),
     ('G', 'Graduate Student'),
     ('U', 'Prefer not to say'),
 )
@@ -61,8 +63,24 @@ class Profile(models.Model):
     guest_factor = models.IntegerField(
         default=3, validators=[MaxValueValidator(5), MinValueValidator(1)])
 
+    min_match_percentage = models.FloatField(
+        default=0.75, validators=[MaxValueValidator(100.0), MinValueValidator(0.0)])
+
+    matches = models.ManyToManyField("self", blank=True)
+
     def __str__(self):
         return self.user.username
+
+    def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        super(Profile, self).save(force_insert, force_update, *args, **kwargs)
+
+        all_profiles = Profile.objects.all()
+
+        for profile in all_profiles:
+            if profile != self:
+                score = matching(self, profile)
+                if score > self.min_match_percentage:
+                    self.matches.add(profile)
 
     @property
     def get_photo_url(self):

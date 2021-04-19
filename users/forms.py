@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, TextInput
 from django.contrib.auth.models import User
 
 from .models import Profile
@@ -16,6 +16,7 @@ CUSTOM_USER_FIELDS = (
     'tidiness_factor',
     'party_factor',
     'guest_factor',
+    'min_match_percentage',
 )
 
 
@@ -28,7 +29,7 @@ class UserForm(ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = CUSTOM_USER_FIELDS
+        fields = [field.name for field in Profile._meta.get_fields()]
 
 
 class RegisterForm(ModelForm):
@@ -47,4 +48,11 @@ class RegisterForm(ModelForm):
             'tidiness_factor': 'On a scale from 1-5, how organized/tidy would you consider yourself?',
             'party_factor': 'On a scale from 1-5, how frequently do you go out/party?',
             'guest_factor': 'On a scale from 1-5, how frequently would you like to have guests over?',
+            'min_match_percentage': 'What would you like your minimum match percentage to be?',
+        }
+        widgets = {
+            'tidiness_factor': TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
+            'party_factor':  TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
+            'guest_factor':  TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
+            'min_match_percentage':  TextInput(attrs={'type': 'range', 'min': 50, 'max': 100}),
         }
