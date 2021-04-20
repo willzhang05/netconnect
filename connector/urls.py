@@ -19,6 +19,7 @@ from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
 from core import views
 from users import views as users_views
+from chat import views as chat_views
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -36,5 +37,6 @@ urlpatterns = [
     path('profile/edit', users_views.edit_profile, name='edit_profile'),
     path('profile/<str:username>/',
          users_views.view_other_profile, name='view_other_profile'),
+    path('', include('chat.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

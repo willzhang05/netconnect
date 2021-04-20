@@ -10,18 +10,20 @@ from django.contrib.auth.models import User
 
 @login_required
 def profile(request):
+    username = request.user.get_username()
     user_form = UserForm(instance=request.user)
     profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'username': username, })
 
 
 @login_required
 def view_other_profile(request, username):
     user = User.objects.get(username=username)
+    username = user.get_username()
     user_form = UserForm(instance=user)
     profile_form = ProfileForm(instance=user.profile)
     is_other = request.user != user
-    return render(request, 'profile.html', {'is_other': is_other, 'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'profile.html', {'is_other': is_other, 'user_form': user_form, 'profile_form': profile_form, 'username': username, })
 
 
 @login_required

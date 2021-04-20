@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'social_django',
     'core',
     'users',
-    'storages'
+    'storages',
+    'channels',
+    'chat'
 ]
 
 
@@ -187,6 +189,13 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img')
 MEDIA_URL = '/img/'
 
+ASGI_APPLICATION = "connector.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 try:
     if 'HEROKU' in os.environ:
