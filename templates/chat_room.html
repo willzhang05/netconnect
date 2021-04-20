@@ -60,14 +60,13 @@
 
             const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
             const userName = JSON.parse(document.getElementById('json-username').textContent);
-
-            const chatSocket = new WebSocket(
-                'wss://'
-                + window.location.host
-                + '/ws/'
-                + roomName
-                + '/'
-            );
+            let wsURI = '';
+            if (window.location.protocol == 'https:') {
+                wsURI += 'wss://' + window.location.host + '/ws/' + roomName + '/'
+            } else {
+                wsURI += 'ws://' + window.location.host + '/ws/' + roomName + '/'
+            }
+            const chatSocket = new WebSocket(wsURI);
 
             chatSocket.onmessage = function(e) {
                 console.log('onmessage');
