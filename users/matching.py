@@ -1,34 +1,62 @@
+FACTOR_WEIGHTS = {
+    'class_rank': 10,
+    'major': 5,
+    'roommates': 10,
+    'semesters': 10,
+    'politics': 5,
+    'social_factor': 20,
+    'tidiness_factor': 15,
+    'party_factor': 10,
+    'guest_factor': 5,
+}
+
+
 def matching(a, b):  # should take two profile objects, will return percentage match between two users
 
     total_points = 0
-    max_points = 1338
+    max_points = sum(FACTOR_WEIGHTS.values())
 
-    # gender
-    total_points += (400 if a.gender == b.gender else 0)
     # class rank
-    total_points += (40 if a.class_rank == b.class_rank else 0)
+    if a.class_rank == b.class_rank:
+        total_points += FACTOR_WEIGHTS['class_rank']
+
     # politics
-    total_points += (70 if a.politics == b.politics else 0)
+    if a.politics == b.politics:
+        total_points += FACTOR_WEIGHTS['politics']
+
     # major
-    total_points += (20 if a.major == b.major else 0)
+    if a.major.upper() == b.major.upper():
+        total_points += FACTOR_WEIGHTS['major']
+
     # roommates
-    total_points += (400 if a.roommates == b.roommates else 0)
+    if a.roommates == b.roommates:
+        roommate_factor = 1.0
+    elif abs(a.roommates - b.roommates) <= 2:
+        roommate_factor = 0.5
+    else:
+        roommate_factor = 0.0
+    total_points += FACTOR_WEIGHTS['roommates'] * roommate_factor
+
     # semesters
-    total_points += (300 if a.semesters == b.semesters else 0)
+    if a.semesters == b.semesters:
+        semesters_factor = 1.0
+    elif abs(a.semesters - b.semesters) <= 2:
+        semesters_factor = 0.5
+    else:
+        semesters_factor = 0.0
+    total_points += FACTOR_WEIGHTS['semesters'] * semesters_factor
 
-    aTime = a.bedtime
-    bTime = b.bedtime
-    aSeconds = (aTime.hour * 60 + aTime.minute) * 60 + aTime.second
-    bSeconds = (bTime.hour * 60 + bTime.minute) * 60 + bTime.second
-    # bedtime - note, this isn't very robust but essentially calculates hour difference in bedtimes to an extent that we need
-    total_points += 20 - abs((aSeconds - bSeconds)) / 60 / 60
+    # social
+    total_points += FACTOR_WEIGHTS['social_factor'] * \
+        ((4.0 - abs(a.social_factor - b.social_factor)) / 4.0)
     # tidiness
-    total_points += 5 * (4 - abs(a.tidiness_factor -
-                                 b.tidiness_factor))
+    total_points += FACTOR_WEIGHTS['tidiness_factor'] * \
+        ((4.0 - abs(a.tidiness_factor - b.tidiness_factor)) / 4.0)
     # party
-    total_points += 10 * (4 - abs(a.party_factor - b.party_factor))
-
+    total_points += FACTOR_WEIGHTS['party_factor'] * \
+        ((4.0 - abs(a.party_factor - b.party_factor)) / 4.0)
     # guest
-    total_points += 7 * (4 - abs(a.guest_factor - b.guest_factor))
+    total_points += FACTOR_WEIGHTS['guest_factor'] * \
+        ((4.0 - abs(a.guest_factor - b.guest_factor)) / 4.0)
 
     return (total_points / max_points) * 100

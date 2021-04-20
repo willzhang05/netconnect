@@ -19,6 +19,9 @@
                 Home
             </a>
             {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'matches' %}">
+                Matches
+            </a>
             <a class="nav-item nav-link" href="{% url 'map' %}">
                 Map
             </a>

@@ -1,9 +1,9 @@
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, HiddenInput
 from django.contrib.auth.models import User
 
 from .models import Profile
 
-CUSTOM_USER_FIELDS = (
+PROFILE_FIELDS = (
     'gender',
     'class_rank',
     'major',
@@ -11,8 +11,8 @@ CUSTOM_USER_FIELDS = (
     'description',
     'roommates',
     'semesters',
-    'bedtime',
     'politics',
+    'social_factor',
     'tidiness_factor',
     'party_factor',
     'guest_factor',
@@ -29,14 +29,13 @@ class UserForm(ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        #fields = [field.name for field in Profile._meta.get_fields()]
-        fields = CUSTOM_USER_FIELDS
+        fields = PROFILE_FIELDS + ('match_enabled',)
 
 
 class RegisterForm(ModelForm):
     class Meta:
         model = Profile
-        fields = CUSTOM_USER_FIELDS
+        fields = PROFILE_FIELDS
         labels = {
             'class_rank': 'What year in school are you?',
             'major': 'What\'s your major?',
@@ -44,14 +43,15 @@ class RegisterForm(ModelForm):
             'description': 'Add any information about yourself you would like potential roommates to see.',
             'roommates': 'How many roommates are you looking for?',
             'semesters': 'For how many semesters are you looking to room?',
-            'bedtime': 'Around what time do you usually go to sleep?',
             'politics': 'What political views do you most identify with?',
+            'social_factor': 'On a scale from 1-5, how frequently would you want to spend time with roommates?',
             'tidiness_factor': 'On a scale from 1-5, how organized/tidy would you consider yourself?',
             'party_factor': 'On a scale from 1-5, how frequently do you go out/party?',
             'guest_factor': 'On a scale from 1-5, how frequently would you like to have guests over?',
             'min_match_percentage': 'What would you like your minimum match percentage to be?',
         }
         widgets = {
+            'social_factor': TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
             'tidiness_factor': TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
             'party_factor':  TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
             'guest_factor':  TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),

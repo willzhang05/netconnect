@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Matches</title>
+{% endblock %}
+{% load filters %}
+
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/matches.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="content">
+    <div class="card">
+        <h1>Matches</h1>
+
+        <table id="profile-fields" class="table table-sm">
+            <tbody>
+                {% for match, match_pct in matches.items %}
+                    <tr>
+                        <th scope="row">
+                            <img class="img-fluid" src="{{ match.get_photo_url }}" alt="Profile picture"/>
+                        </th>
+                        <td>{{ match.user.get_full_name }} ({{ match.user.username }})</td>
+                        <td>{{ match_pct|floatformat:1 }}%</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -9,6 +9,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 from .matching import matching
 
+
 GENDER_CHOICES = (
     ('F', 'Female'),
     ('M', 'Male'),
@@ -52,10 +53,11 @@ class Profile(models.Model):
     semesters = models.IntegerField(
         default=2, validators=[MinValueValidator(1)])
 
-    bedtime = models.TimeField(default=datetime.time(0, 0, 0))
-
     politics = models.CharField(
         max_length=1, choices=POLITICAL_VIEW_CHOICES, default='U')
+
+    social_factor = models.IntegerField(
+        default=3, validators=[MaxValueValidator(5), MinValueValidator(1)])
     tidiness_factor = models.IntegerField(
         default=3, validators=[MaxValueValidator(5), MinValueValidator(1)])
     party_factor = models.IntegerField(
@@ -66,6 +68,8 @@ class Profile(models.Model):
     min_match_percentage = models.FloatField(
         default=0.75, validators=[MaxValueValidator(100.0), MinValueValidator(0.0)])
 
+    match_enabled = models.BooleanField(default=False)
+
     matches = models.ManyToManyField("self", blank=True)
 
     def __str__(self):
@@ -74,13 +78,17 @@ class Profile(models.Model):
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
         super(Profile, self).save(force_insert, force_update, *args, **kwargs)
 
-        all_profiles = Profile.objects.all()
+        if self.match_enabled:
+            match_profiles = Profile.objects.filter(match_enabled=True)
 
-        for profile in all_profiles:
-            if profile != self:
-                score = matching(self, profile)
-                if score > self.min_match_percentage:
-                    self.matches.add(profile)
+            for profile in match_profiles:
+                if profile != self:
+                    score = matching(self, profile)
+                    if score > self.min_match_percentage and score > profile.min_match_percentage:
+                        self.matches.add(profile)
+                        profile.matches.add(self)
+        else:
+            self.matches.clear()
 
     @property
     def get_photo_url(self):
