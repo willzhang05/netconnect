@@ -14,20 +14,26 @@
 <div id="content">
     <div class="card">
         <h1>Matches</h1>
-
-        <table id="profile-fields" class="table table-sm">
-            <tbody>
-                {% for match, match_pct in matches.items %}
-                    <tr>
-                        <th scope="row">
-                            <img class="img-fluid" src="{{ match.get_photo_url }}" alt="Profile picture"/>
-                        </th>
-                        <td>{{ match.user.get_full_name }} ({{ match.user.username }})</td>
-                        <td>{{ match_pct|floatformat:1 }}%</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <ul class="list-group">
+            {% for match, match_pct in matches.items %}
+                <li class="list-group-item match-item">
+                    <div class="match-picture-container">
+                        <img class="img-fluid" src="{{ match.get_photo_url }}" alt="Profile picture"/>
+                    </div>
+                    <div class="match-info">
+                        {{ match.user.get_full_name }} ({{ match.user.username }})
+                    </div>
+                    <div class="match-info">
+                        Compatibility: {{ match_pct|floatformat:1 }}%</span>
+                    </div>
+                    <div class="match-info">
+                        <a href="{% url 'view_other_profile' username=match.user.username %}">
+                            <button class="btn btn-outline-primary">View Profile</button>
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 {% endblock %}
