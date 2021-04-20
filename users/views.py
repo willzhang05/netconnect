@@ -29,9 +29,12 @@ def view_other_profile(request, username):
 @login_required
 @transaction.atomic
 def register(request):
+    instance = request.user.profile
+    instance.match_enabled = True
+
     if request.method == 'POST':
         form = RegisterForm(request.POST, request.FILES,
-                            instance=request.user.profile)
+                            instance=instance)
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully registered.')
@@ -39,7 +42,7 @@ def register(request):
         else:
             messages.error(request, 'Please correct the error below.')
     else:
-        form = RegisterForm(instance=request.user.profile)
+        form = RegisterForm(instance=instance)
     return render(request, 'register.html', {'form': form})
 
 

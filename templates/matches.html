@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Matches</title>
+{% endblock %}
+{% load filters %}
+
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/matches.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="content">
+    <div class="card">
+        <h1>Matches</h1>
+        <ul class="list-group">
+            {% for match, match_pct in matches.items %}
+                <li class="list-group-item match-item">
+                    <div class="match-picture-container">
+                        <img class="img-fluid" src="{{ match.get_photo_url }}" alt="Profile picture"/>
+                    </div>
+                    <div class="match-info">
+                        {{ match.user.get_full_name }}
+                    </div>
+                    <div class="match-info">
+                        Compatibility: {{ match_pct|floatformat:1 }}%</span>
+                    </div>
+                    <div class="match-info">
+                        <a href="{% url 'view_other_profile' username=match.user.username %}">
+                            <button class="btn btn-outline-primary">View Profile</button>
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

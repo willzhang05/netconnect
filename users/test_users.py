@@ -1,9 +1,10 @@
 from django.test import TestCase
 from users.models import Profile, create_user_profile, save_user_profile
-from users.forms import UserForm,ProfileForm,RegisterForm
+from users.forms import UserForm, ProfileForm, RegisterForm
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 import datetime
+
 
 class ProfileTestCase(TestCase):
 
@@ -52,6 +53,15 @@ class ProfileTestCase(TestCase):
         profile2.description = "test description"
         assert profile2.description == "test description"
 
+    def test_default_value_social_factor(self):
+        profile1 = Profile()
+        assert profile1.social_factor == 3
+
+    def test_change_value_social_factor(self):
+        profile2 = Profile()
+        profile2.social_factor = 1
+        assert profile2.social_factor == 1
+
     def test_default_value_tidiness_factor(self):
         profile1 = Profile()
         assert profile1.tidiness_factor == 3
@@ -97,10 +107,6 @@ class ProfileTestCase(TestCase):
         profile2.semesters = 5
         assert profile2.semesters == 5
 
-    def test_default_values_bedtime(self):
-        profile1 = Profile()
-        assert profile1.bedtime == datetime.time(0, 0, 0)
-
     def test_change_value_bedtime(self):
         profile2 = Profile()
         profile2.bedtime = datetime.time(5, 4, 11)
@@ -123,11 +129,11 @@ class ProfileTestCase(TestCase):
 
     def test_default_fields_ProfileForm(self):
         form = ProfileForm(ModelForm)
-        assert form.Meta.fields == ('gender','class_rank','major',
-                                    'picture','description','roommates',
-                                    'semesters','bedtime','politics',
-                                    'tidiness_factor','party_factor',
-                                    'guest_factor')
+        assert form.Meta.fields == ('gender', 'class_rank', 'major',
+                                    'picture', 'description', 'roommates',
+                                    'semesters', 'politics',
+                                    'social_factor', 'tidiness_factor', 'party_factor',
+                                    'guest_factor', 'min_match_percentage', 'match_enabled')
 
     def test_default_model_ProfileForm(self):
         form = ProfileForm(ModelForm)
@@ -135,11 +141,11 @@ class ProfileTestCase(TestCase):
 
     def test_default_fields_RegisterForm(self):
         form = RegisterForm(ModelForm)
-        assert form.Meta.fields == ('gender','class_rank','major',
-                                    'picture','description','roommates',
-                                    'semesters','bedtime','politics',
-                                    'tidiness_factor','party_factor',
-                                    'guest_factor')
+        assert form.Meta.fields == ('gender', 'class_rank', 'major',
+                                    'picture', 'description', 'roommates',
+                                    'semesters', 'politics',
+                                    'social_factor', 'tidiness_factor', 'party_factor',
+                                    'guest_factor', 'min_match_percentage')
 
     def test_default_model_RegisterForm(self):
         form = RegisterForm(ModelForm)

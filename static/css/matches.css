@@ -1,0 +1,27 @@
+.match-picture-container {
+    width: 5vw;
+}
+
+.match-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: transparent;
+}
+
+.match-info {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    padding-left: 1rem;
+}
+    
+    
+
+th img {
+    width: 5vw;
+}
+
+th {
+    width: 100%;
+}

@@ -1,3 +1,7 @@
+* {
+    font-family: "Poppins", "Open Sans", "sans-serif";
+}
+
 html, body {
     min-height: 100vh;
     width: 100%;
@@ -15,9 +19,7 @@ html, body {
     border-radius: 0.5rem;
     min-width: 25vw;
     max-width: 50vw;
-    color: black;
 }
-
 
 form > div {
     margin: 1em;
@@ -38,9 +40,13 @@ nav {
     flex-direction: row;
 }
 
-#welcome {
-    flex: 1;
-    text-align: right;
+nav div:last-child {
+    margin-left: auto;
+}
+
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
 }
 
 #main {
@@ -50,11 +56,10 @@ nav {
 }
 
 #content {
-    background: url('//live.staticflickr.com/4440/36039981420_6c72353d74_k.jpg');
+    background: url('//i.imgur.com/vCFJfUy.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    color: white;
     width: 100%;
     margin: 0 3rem;
     border-radius: 0.5rem 0.5rem 0 0;
@@ -79,6 +84,14 @@ button {
     outline: none;
 }
 
+#get-started {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 0;
+}
+    
+
 .splide__slide {
     display: flex;
     flex-direction: column;
@@ -89,3 +102,9 @@ button {
     display: none;
 }
 
+@media screen and (max-width: 800px) {
+    #content {
+        border-radius: 0;
+        margin: 0;
+    }
+}

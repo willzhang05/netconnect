@@ -29,6 +29,7 @@ urlpatterns = [
     path('', include('social_django.urls', namespace='social')),
     path('admin/', admin.site.urls),
     path('map/', views.map, name="map"),
+    path('matches/', views.matches, name="matches"),
     path('login/', views.login, name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page="home"), name='logout'),
     path('register/', users_views.register, name='register'),
