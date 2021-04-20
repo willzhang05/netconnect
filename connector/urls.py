@@ -37,8 +37,6 @@ urlpatterns = [
     path('profile/edit', users_views.edit_profile, name='edit_profile'),
     path('profile/<str:username>/',
          users_views.view_other_profile, name='view_other_profile'),
-    #path('chat/', chat_views.chat_index, name='chat_index'), #search by username page
-    #path('chat/<str:username>/', chat_views.room, name='room'), #chat with user (if you know user, use this)
     path('', include('chat.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

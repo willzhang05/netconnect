@@ -8,8 +8,9 @@ from .models import Message
 def index(request):
     #username = request.user.get_username()
     return render(request, 'chat_index.html', {
-     #   'username': username,
+        #   'username': username,
     })
+
 
 def room(request, room_name):
     username = request.user.get_username()
