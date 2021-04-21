@@ -15,6 +15,11 @@
         {% if not is_other %}
             <h1>My Profile</h1>
         {% endif %}
+        {% if is_other %}
+        <h1>
+            <td>{{user_form.first_name.value}} {{user_form.last_name.value}}</td>
+        </h1>
+        {% endif %}
         <div id="profile-picture-wrapper">
             <div id="profile-picture">
                 <img class="img-fluid" src="{{ profile_form.instance.get_photo_url }}" alt="Profile picture"/>
@@ -30,11 +35,14 @@
                 {% endfor %}
 
                 {% for field in profile_form %}
+                {% if not field.label == "Picture" %}
                     <tr>
                         <th scope="row">{{ field.label }}</th>
                         <td>{{ field.value|default_if_none:'Unknown' }}</td>
                     </tr>
+                {% endif %}
                 {% endfor %}
+               
             </tbody>
         </table>
         <div id="profile-interactions">
