@@ -19,12 +19,12 @@
             {% endfor %}
             {% for field in profile_form %}
                 <div class="form-group">
-                    {{ field.errors }}
                     <label for="{{ field.label }}">{{ field.label }}</label>
                     {{ field|add_class:'form-control' }}
                     {% if field.help_text %}
                         <small class="form-text text-muted">{{ field.help_text|safe }}</small>
                     {% endif %}
+                    {{ field.errors }}
                 </div>
             {% endfor %}
             <button class="btn btn-outline-primary" type="submit">Save</button>

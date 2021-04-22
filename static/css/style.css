@@ -91,15 +91,11 @@ button {
     margin: 1rem 0;
 }
     
-
-.splide__slide {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.splide__arrow:disabled {
-    display: none;
+.errorlist {
+    color: red;
+    list-style: none;
+    padding: 0;
+    font-weight: bold;
 }
 
 @media screen and (max-width: 800px) {

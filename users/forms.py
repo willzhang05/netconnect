@@ -37,6 +37,7 @@ class RegisterForm(ModelForm):
         model = Profile
         fields = PROFILE_FIELDS
         labels = {
+            'gender': 'What\'s your gender?',
             'class_rank': 'What year in school are you?',
             'major': 'What\'s your major?',
             'picture': 'Upload a profile picture!',
@@ -55,5 +56,5 @@ class RegisterForm(ModelForm):
             'tidiness_factor': TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
             'party_factor':  TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
             'guest_factor':  TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
-            'min_match_percentage':  TextInput(attrs={'type': 'range', 'min': 50, 'max': 100}),
+            'min_match_percentage':  TextInput(attrs={'type': 'range', 'min': 0, 'max': 100}),
         }

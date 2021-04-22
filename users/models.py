@@ -66,7 +66,7 @@ class Profile(models.Model):
         default=3, validators=[MaxValueValidator(5), MinValueValidator(1)])
 
     min_match_percentage = models.FloatField(
-        default=0.75, validators=[MaxValueValidator(100.0), MinValueValidator(0.0)])
+        default=75, validators=[MaxValueValidator(100.0), MinValueValidator(0.0)])
 
     match_enabled = models.BooleanField(default=False)
 
@@ -76,7 +76,7 @@ class Profile(models.Model):
         return self.user.username
 
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
-        super(Profile, self).save(force_insert, force_update, *args, **kwargs)
+        self.matches.clear()
 
         if self.match_enabled:
             match_profiles = Profile.objects.filter(match_enabled=True)
@@ -87,8 +87,8 @@ class Profile(models.Model):
                     if score > self.min_match_percentage and score > profile.min_match_percentage:
                         self.matches.add(profile)
                         profile.matches.add(self)
-        else:
-            self.matches.clear()
+
+        super(Profile, self).save(force_insert, force_update, *args, **kwargs)
 
     @property
     def get_photo_url(self):
