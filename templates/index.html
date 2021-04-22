@@ -6,8 +6,8 @@
 {% block content %}
 <div id="content">
     <div id="landing" class="card">
-        <h1>Welcome to Roommate Connector!</h1>
-        <p>Roommate Connector's matching algorithm helps to find you compatible roommates based on a variety of factors.</p>
+        <h1><img src="static/img/netconnect.png" width="225.3" height="127.7" alt=""></h1>
+        <p>NetConnect's matching algorithm helps to connect you with compatible roommates based on a variety of factors.</p>
         {% if not user.is_authenticated %}
         <div id="get-started">
             <a href="{% url 'register' %}"><button type="button" class="btn btn-primary btn-lg">Get Started</button></a>
