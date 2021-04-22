@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+    'django.contrib.redirects',
     'social_django',
     'core',
     'users',
@@ -197,9 +200,21 @@ CHANNEL_LAYERS = {
     },
 }
 
-try:
-    if 'HEROKU' in os.environ:
-        import django_heroku
-        django_heroku.settings(locals())
-except:
-    pass
+
+if 'HEROKU' in os.environ:
+    import django_heroku
+    DEBUG = False
+
+    # security settings
+    ALLOWED_HOSTS = ['netconnect.herokuapp.com',
+                     'www.netconnect.herokuapp.com']
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 3600
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_SSL_HOST = 'netconnect.herokuapp.com'
+    SECURE_SSL_REDIRECT = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_BROWSER_XSS_FILTER = True
+    X_FRAME_OPTIONS = 'SAMEORIGIN'
+    django_heroku.settings(locals())
