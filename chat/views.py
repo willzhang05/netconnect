@@ -1,17 +1,10 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Message
 #from forms import UserForm, ProfileForm
 
-
-# Create your views here.
-def index(request):
-    #username = request.user.get_username()
-    return render(request, 'chat_index.html', {
-        #   'username': username,
-    })
-
-
+@login_required
 def room(request, room_name):
     username = request.user.get_username()
     messages = Message.objects.filter(room=room_name)[0:25]

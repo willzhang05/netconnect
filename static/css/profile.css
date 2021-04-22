@@ -19,6 +19,10 @@
     margin: 1em 0;
 }
 
+#profile-interactions > a {
+    display: inline-block;
+}
+
 .table td, .table th {
     background: transparent;
     border: none;
