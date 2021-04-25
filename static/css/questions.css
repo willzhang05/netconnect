@@ -1,22 +1,11 @@
-.question {
-    color: black;
-}
-
 .question-title {
     font-size: 3rem;
-}
-
-.question-prompt {
-    margin: 1em 0;
 }
 
 .question-body {
     display: flex;
     flex-direction: column;
     width: 100%;
-}
-
-.question-label {
 }
 
 .slider {

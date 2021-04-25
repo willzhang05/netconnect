@@ -36,6 +36,9 @@ POLITICAL_VIEW_CHOICES = (
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    completed_registration = models.BooleanField(default=False)
+
     #full_name = models.CharField(max_length=200)
     gender = models.CharField(
         max_length=1, choices=GENDER_CHOICES, default='U')

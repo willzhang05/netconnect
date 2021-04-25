@@ -15,24 +15,34 @@
     <div class="card">
         <h1>Matches</h1>
         <ul class="list-group">
-            {% for match, match_pct in matches.items %}
-                <li class="list-group-item match-item">
-                    <div class="match-picture-container">
-                        <img class="img-fluid" src="{{ match.get_photo_url }}" alt="Profile picture"/>
-                    </div>
-                    <div class="match-info">
-                        {{ match.user.get_full_name }}
-                    </div>
-                    <div class="match-info">
-                        Compatibility: {{ match_pct|floatformat:1 }}%</span>
-                    </div>
-                    <div class="match-info">
-                        <a href="{% url 'view_other_profile' username=match.user.username %}">
-                            <button class="btn btn-outline-primary">View Profile</button>
-                        </a>
-                    </div>
-                </li>
-            {% endfor %}
+            {% if user.profile.completed_registration %}
+                {% if matches|length == 0 %}
+                    You have no matches!
+                {% endif %}
+                {% for match, match_pct in matches.items %}
+                    <li class="list-group-item match-item">
+                        <div class="match-picture-container">
+                            <img class="img-fluid" src="{{ match.get_photo_url }}" alt="Profile picture"/>
+                        </div>
+                        <div class="match-info">
+                            {{ match.user.get_full_name }}
+                        </div>
+                        <div class="match-info">
+                            Compatibility: {{ match_pct|floatformat:1 }}%</span>
+                        </div>
+                        <div class="match-info">
+                            <a href="{% url 'view_other_profile' username=match.user.username %}">
+                                <button class="btn btn-outline-primary">View Profile</button>
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <div id="get-started">
+                    <p>To start matching with potential roommates, make sure you finish registration!</p>
+                    <a href="{% url 'register' %}"><button type="button" class="btn btn-outline-primary">Finish registration</button></a>
+                </div>
+            {% endif %}
         </ul>
     </div>
 </div>

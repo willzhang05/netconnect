@@ -30,7 +30,6 @@ def view_other_profile(request, username):
 @transaction.atomic
 def register(request):
     instance = request.user.profile
-    instance.match_enabled = True
 
     if request.method == 'POST':
         form = RegisterForm(request.POST, request.FILES,
@@ -38,7 +37,10 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully registered.')
-            return redirect('home')
+            instance.completed_registration = True
+            instance.match_enabled = True
+            instance.save()
+            return redirect('matches')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
