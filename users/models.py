@@ -83,7 +83,8 @@ class Profile(models.Model):
         self.matches.clear()
 
         if self.match_enabled:
-            match_profiles = Profile.objects.filter(match_enabled=True)
+            match_profiles = Profile.objects.filter(
+                completed_registration=True, match_enabled=True)
 
             for profile in match_profiles:
                 if profile != self:
@@ -91,7 +92,6 @@ class Profile(models.Model):
                     if score > self.min_match_percentage and score > profile.min_match_percentage:
                         self.matches.add(profile)
                         profile.matches.add(self)
-
 
     @property
     def get_photo_url(self):

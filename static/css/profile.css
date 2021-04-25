@@ -4,11 +4,11 @@
 }
 
 #profile-picture {
-    width: 15vw;
-    height: 15vw;
+    width: 12vw;
+    height: 12vw;
 }
 
-#profile-picture > img {
+#profile-picture img {
     border-radius: 0.25rem;
     object-fit: cover;
     width: 100%;

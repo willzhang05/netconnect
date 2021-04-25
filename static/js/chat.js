@@ -22,8 +22,6 @@ chatSocket.onmessage = function(e) {
 
     if (data.message) {
         document.querySelector('#chat-messages').innerHTML += ('<b>' + data.username + '</b>: ' + data.message + '<br>');
-    } else {
-        alert('The message is empty!');
     }
 
     scrollToBottom();

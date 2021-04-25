@@ -2,6 +2,10 @@
     width: 5vw;
 }
 
+.match-picture-container img {
+    border-radius: 0.25rem;
+}
+
 .match-item {
     display: flex;
     flex-direction: row;
