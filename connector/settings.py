@@ -25,6 +25,7 @@ SECRET_KEY = 'k)9$&v2n*&p&2+sr5le8y^w=z1jfxd!5!yx4wz377_!uoq9k$y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+SITE_ID = 1
 
 ALLOWED_HOSTS = []
 
@@ -203,6 +204,8 @@ CHANNEL_LAYERS = {
 
 if 'HEROKU' in os.environ:
     import django_heroku
+    SITE_ID = 1
+
     DEBUG = False
 
     # security settings

@@ -76,6 +76,7 @@ class Profile(models.Model):
         return self.user.username
 
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        super(Profile, self).save(force_insert, force_update, *args, **kwargs)
         self.matches.clear()
 
         if self.match_enabled:
@@ -88,7 +89,6 @@ class Profile(models.Model):
                         self.matches.add(profile)
                         profile.matches.add(self)
 
-        super(Profile, self).save(force_insert, force_update, *args, **kwargs)
 
     @property
     def get_photo_url(self):
