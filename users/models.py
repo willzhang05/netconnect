@@ -79,19 +79,20 @@ class Profile(models.Model):
         return self.user.username
 
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        if self.id:
+            self.matches.clear()
+
+            if self.match_enabled:
+                match_profiles = Profile.objects.filter(
+                    completed_registration=True, match_enabled=True)
+
+                for profile in match_profiles:
+                    if profile != self:
+                        score = matching(self, profile)
+                        if score > self.min_match_percentage and score > profile.min_match_percentage:
+                            self.matches.add(profile)
+                            profile.matches.add(self)
         super(Profile, self).save(force_insert, force_update, *args, **kwargs)
-        self.matches.clear()
-
-        if self.match_enabled:
-            match_profiles = Profile.objects.filter(
-                completed_registration=True, match_enabled=True)
-
-            for profile in match_profiles:
-                if profile != self:
-                    score = matching(self, profile)
-                    if score > self.min_match_percentage and score > profile.min_match_percentage:
-                        self.matches.add(profile)
-                        profile.matches.add(self)
 
     @property
     def get_photo_url(self):
