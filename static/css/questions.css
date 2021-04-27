@@ -65,9 +65,11 @@
     transform: scale(0.8);
 }*/
 
-.next-slide {
+.change-slide {
     text-align: center;
+    display: inline-block;
 }
+
 
 input[type=range] {
     padding-left: 0;
@@ -76,4 +78,10 @@ input[type=range] {
 
 input[type=range]:focus {
     box-shadow: none;
+}
+
+.range-label-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

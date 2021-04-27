@@ -42,10 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.redirects',
     'social_django',
-    'core',
-    'users',
     'storages',
     'channels',
+    'mathfilters',
+    'core',
+    'users',
     'chat'
 ]
 

@@ -47,7 +47,7 @@
         </table>
         <div id="profile-interactions">
             {% if is_other %}
-                <a href="{% url 'chat_room' user_one=profile_form.instance.user.username user_two=user.get_username %}" class="next-slide">
+                <a href="{% url 'chat_room' user_one=profile_form.instance.user.username user_two=user.get_username %}">
                     <button class="btn btn-outline-primary" type="button">
                         Chat With This Person
                     </button>

@@ -1,4 +1,4 @@
-from django.forms import ModelForm, TextInput, HiddenInput
+from django.forms import ModelForm, NumberInput, HiddenInput
 from django.contrib.auth.models import User
 
 from .models import Profile
@@ -52,9 +52,9 @@ class RegisterForm(ModelForm):
             'min_match_percentage': 'What would you like your minimum match percentage to be?',
         }
         widgets = {
-            'social_factor': TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
-            'tidiness_factor': TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
-            'party_factor':  TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
-            'guest_factor':  TextInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
-            'min_match_percentage':  TextInput(attrs={'type': 'range', 'min': 0, 'max': 100}),
+            'social_factor': NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
+            'tidiness_factor': NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
+            'party_factor':  NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
+            'guest_factor':  NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
+            'min_match_percentage':  NumberInput(attrs={'type': 'range', 'min': 0, 'max': 100}),
         }

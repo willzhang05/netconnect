@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load filters %}
+{% load mathfilters %}
 
 {% load static %}
 {% block styles %}
@@ -17,7 +18,7 @@
                     <p>
                         Thanks for signing up with NetConnect! In order to match you with potential roommates, we need to collect some basic information about you. You can always change any of your responses to these questions later.
                     </p>
-                    <a href="#slide0" class="next-slide">
+                    <a href="#slide0" class="change-slide">
                         <button class="btn btn-outline-primary" type="button">
                             Next
                         </button>
@@ -28,20 +29,41 @@
                         <div class="form-group question-body">
                             <label for="{{ field.label }}" class="question-label">{{ field.label }}</label>
                             {{ field|add_class:'form-control' }}
+                            {% if field.field.widget.input_type == 'range' %}
+                                <span class="range-label-wrapper">
+                                    <label for="{{ field.label }}" class="range-label">{{ field.field.widget.attrs.min }}</label>
+                                    <label for="{{ field.label }}" class="range-label">{{ field.field.widget.attrs.max }}</label>
+                                </span>
+                            {% endif %}
                             {% if field.help_text %}
                                 <small class="form-text text-muted">{{ field.help_text|safe }}</small>
                             {% endif %}
                             {{ field.errors }}
                         </div>
-                        {% if forloop.last %}
-                            <button class="btn btn-outline-primary" type="submit">Register</button>
-                        {% else %}
-                            <a href="#slide{{ forloop.counter }}" class="next-slide">
-                                <button class="btn btn-outline-primary" type="button">
-                                    Next
-                                </button>
-                            </a>
-                        {% endif %}
+                        <div class="form-group">
+                            {% if forloop.first %}
+                                <a href="#slide-intro" class="change-slide">
+                                    <button class="btn btn-outline-primary" type="button">
+                                        Back
+                                    </button>
+                                </a>
+                            {% else %}
+                                <a href="#slide{{ forloop.counter0 |sub:1 }}" class="change-slide">
+                                    <button class="btn btn-outline-primary" type="button">
+                                        Back
+                                    </button>
+                                </a>
+                            {% endif %}
+                            {% if forloop.last %}
+                                <button class="btn btn-outline-primary" type="submit">Register</button>
+                            {% else %}
+                                <a href="#slide{{ forloop.counter }}" class="change-slide">
+                                    <button class="btn btn-outline-primary" type="button">
+                                        Next
+                                    </button>
+                                </a>
+                            {% endif %}
+                        </div>
                     </div>
                 {% endfor %}
             </div>
