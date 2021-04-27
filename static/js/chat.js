@@ -3,7 +3,8 @@ function scrollToBottom() {
     objDiv.scrollTop = objDiv.scrollHeight;
 }
 
-scrollToBottom();
+
+addEventListener('load', scrollToBottom());
 
 const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
 const userName = JSON.parse(document.getElementById('json-username').textContent);
