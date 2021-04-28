@@ -139,7 +139,8 @@ class ProfileTestCase(TestCase):
                                     'picture', 'description', 'roommates',
                                     'semesters', 'politics',
                                     'social_factor', 'tidiness_factor', 'party_factor',
-                                    'guest_factor', 'min_match_percentage', 'match_enabled')
+                                    'guest_factor', 'min_match_percentage',
+                                    'match_enabled', 'search_lat', 'search_lng', 'search_radius')
 
     def test_default_model_ProfileForm(self):
         form = ProfileForm(ModelForm)
@@ -151,8 +152,9 @@ class ProfileTestCase(TestCase):
                                     'picture', 'description', 'roommates',
                                     'semesters', 'politics',
                                     'social_factor', 'tidiness_factor', 'party_factor',
-                                    'guest_factor', 'min_match_percentage', 'match_enabled',
-                                    'search_lat', 'search_lng', 'search_radius')
+                                    'guest_factor', 'min_match_percentage')
+
+
 
     def test_default_model_RegisterForm(self):
         form = RegisterForm(ModelForm)
