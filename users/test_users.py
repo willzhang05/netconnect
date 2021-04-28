@@ -4,6 +4,12 @@ from users.forms import UserForm, ProfileForm, RegisterForm
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 import datetime
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+
+
+class ProfileSeleniumTestCase(TestCase):
+    pass
 
 
 class ProfileTestCase(TestCase):
@@ -133,8 +139,7 @@ class ProfileTestCase(TestCase):
                                     'picture', 'description', 'roommates',
                                     'semesters', 'politics',
                                     'social_factor', 'tidiness_factor', 'party_factor',
-                                    'guest_factor', 'min_match_percentage', 'match_enabled',
-                                    'search_lat', 'search_lng', 'search_radius')
+                                    'guest_factor', 'min_match_percentage', 'match_enabled')
 
     def test_default_model_ProfileForm(self):
         form = ProfileForm(ModelForm)
@@ -146,12 +151,35 @@ class ProfileTestCase(TestCase):
                                     'picture', 'description', 'roommates',
                                     'semesters', 'politics',
                                     'social_factor', 'tidiness_factor', 'party_factor',
-                                    'guest_factor', 'min_match_percentage')
+                                    'guest_factor', 'min_match_percentage', 'match_enabled',
+                                    'search_lat', 'search_lng', 'search_radius')
 
     def test_default_model_RegisterForm(self):
         form = RegisterForm(ModelForm)
         assert form.Meta.model == Profile
+    
+    def test_default_value_match_enabled(self):
+        profile1 = Profile()
+        assert profile1.match_enabled == False
 
+    def test_default_value_min_match_percentage(self):
+        profile1 = Profile()
+        assert profile1.min_match_percentage == 75
+
+    def test_change_first_name(self):
+        form1 = User()
+        form1.first_name = "John"
+        assert form1.first_name == "John"
+    
+    def test_change_last_name(self):
+        form1 = User()
+        form1.last_name = "Doe"
+        assert form1.last_name == "Doe"
+
+    def test_change_email(self):
+        form1 = User()
+        form1.email = "johndoe@gmail.com"
+        assert form1.email == "johndoe@gmail.com"
     # will later make picture test for blank picture once that is working
 
     # userConfig tests from users.apps did not seem possible
