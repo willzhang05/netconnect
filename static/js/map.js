@@ -97,7 +97,6 @@ function setMarker(coords) {
 
         searchMarker.on('mouseup', function() {
             searchMarker.dragging.disable();
-            updateAPI();
         });
 
         searchMarker.on("mousedown", function(e) {
@@ -163,6 +162,7 @@ map.on("mousedown", function(e) {
         if (searchCircle != null) {
             searchCircle.setLatLng(e.latlng);
         }
+        updateAPI();
         enableSetMarker = false;
     }
 });

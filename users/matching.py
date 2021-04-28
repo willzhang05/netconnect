@@ -1,3 +1,5 @@
+import geopy.distance
+
 FACTOR_WEIGHTS = {
     'class_rank': 10,
     'major': 5,
@@ -8,7 +10,15 @@ FACTOR_WEIGHTS = {
     'tidiness_factor': 15,
     'party_factor': 10,
     'guest_factor': 5,
+    'location': 10,
 }
+
+def search_location_overlap(a, b):
+    if a.search_lat == b.search_lat and a.search_lng == b.search_lng:
+        return True
+    
+    distance = geopy.distance.distance((a.search_lat, a.search_lng), (b.search_lat, b.search_lng))
+    return (a.search_radius - b.search_radius)**2 <= distance <= (a.search_radius + b.search_radius)**2
 
 
 def matching(a, b):  # should take two profile objects, will return percentage match between two users
@@ -58,5 +68,10 @@ def matching(a, b):  # should take two profile objects, will return percentage m
     # guest
     total_points += FACTOR_WEIGHTS['guest_factor'] * \
         ((4.0 - abs(a.guest_factor - b.guest_factor)) / 4.0)
+
+    # location
+    if a.search_lat and a.search_lng and a.search_radius and b.search_lat and b.search_lng and b.search_radius:
+        total_points += FACTOR_WEIGHTS['location'] * search_location_overlap(a, b)
+    
 
     return (total_points / max_points) * 100

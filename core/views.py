@@ -23,15 +23,14 @@ def matches(request):
 @login_required
 def marker(request):
     if request.method == 'POST':
-        print(request.body)
         data = json.loads(request.body)
         if 'lat' in data and 'lng' in data and 'radius' in data:
             profile = Profile.objects.get(user=request.user)
             if data['lat'] and data['lng']:
-                profile.search_lat = data['lat']
-                profile.search_lng = data['lng']
+                profile.search_lat = float(data['lat'])
+                profile.search_lng = float(data['lng'])
             if data['radius']:
-                profile.search_radius = data['radius']
+                profile.search_radius = float(data['radius'])
             profile.save()
             return JsonResponse({'success': True})
         
