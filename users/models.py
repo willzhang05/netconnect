@@ -75,6 +75,12 @@ class Profile(models.Model):
 
     matches = models.ManyToManyField("self", blank=True)
 
+    search_lat = models.FloatField("Search Latitude", null=True, blank=True)
+    search_lng = models.FloatField("Search Longitude", null=True, blank=True)
+
+    search_radius = models.FloatField(
+        "Search Radius", default=1.0, validators=[MinValueValidator(0.0)])
+
     def __str__(self):
         return self.user.username
 

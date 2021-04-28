@@ -28,6 +28,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('', include('social_django.urls', namespace='social')),
     path('admin/', admin.site.urls),
+    path('marker/', views.marker, name="marker"),
     path('map/', views.map, name="map"),
     path('matches/', views.matches, name="matches"),
     path('login/', views.login, name='login'),

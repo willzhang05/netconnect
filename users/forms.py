@@ -29,7 +29,8 @@ class UserForm(ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = PROFILE_FIELDS + ('match_enabled',)
+        fields = PROFILE_FIELDS + \
+            ('match_enabled', 'search_lat', 'search_lng', 'search_radius')
 
 
 class RegisterForm(ModelForm):
