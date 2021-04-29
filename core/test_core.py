@@ -9,6 +9,7 @@ from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.action_chains import ActionChains
+from core.apps import CoreConfig
 
 # sadly had to get rid of headless since it turns out this was messing with some of the tests.
 # this resulted in some perfectly good tests failing for no real reason other than this.
@@ -1098,3 +1099,8 @@ class ProfileSeleniumTestCase(TestCase):
             assert (textbefore != textafter) and (textafter == testother) and (user2_url == "https://netconnect.herokuapp.com/chat/testu2522-tu380686") and (user1_url == "https://netconnect.herokuapp.com/chat/tu380686-testu2522")
         except:
             assert True
+
+
+class ProfileTestCase(TestCase):
+    def test_core_apps(self):
+        assert CoreConfig.name == 'core'
