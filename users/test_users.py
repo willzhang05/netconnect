@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 import datetime
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
+from users.matching import matching
 
 
 class ProfileSeleniumTestCase(TestCase):
@@ -182,6 +183,219 @@ class ProfileTestCase(TestCase):
         form1 = User()
         form1.email = "johndoe@gmail.com"
         assert form1.email == "johndoe@gmail.com"
+
+    def test_matching_default(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-0=90
+        profile1 = Profile()
+        profile2 = Profile()
+        assert matching(profile1,profile2) == 100
+
+    def test_matching_1_off_roomate(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(10*.5)=85
+        profile1 = Profile()
+        profile1.roommates = 1
+        profile2 = Profile()
+        profile2.roommates = 2
+        assert matching(profile1, profile2) == (85/90)*100
+
+    def test_matching_3_off_roomate(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(10*1)=80
+        profile1 = Profile()
+        profile1.roommates = 1
+        profile2 = Profile()
+        profile2.roommates = 4
+        assert matching(profile1, profile2) == (80/90)*100
+
+    def test_matching_1_off_semesters(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(10*.5)=85
+        profile1 = Profile()
+        profile1.semesters = 1
+        profile2 = Profile()
+        profile2.semesters = 2
+        assert matching(profile1, profile2) == (85/90)*100
+
+    def test_matching_3_off_semesters(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(10*1)=80
+        profile1 = Profile()
+        profile1.semesters = 1
+        profile2 = Profile()
+        profile2.semesters = 4
+        assert matching(profile1, profile2) == (80/90)*100
+
+    def test_matching_2_off_roomates_and_1_semesters(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(10*.5)-(10*.5)=80
+        profile1 = Profile()
+        profile1.semesters = 1
+        profile1.roommates = 1
+        profile2 = Profile()
+        profile2.semesters = 3
+        profile2.roommates = 3
+        assert matching(profile1, profile2) == (80/90)*100
+
+    def test_matching_2_off_roomates_and_3_semesters(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(10*.5)-(10*1)=75
+        profile1 = Profile()
+        profile1.semesters = 1
+        profile1.roommates = 1
+        profile2 = Profile()
+        profile2.semesters = 4
+        profile2.roommates = 3
+        assert matching(profile1, profile2) == (75/90)*100
+
+    def test_wrong_class_rank(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(10*1)=80
+        profile1 = Profile()
+        profile1.class_rank = 1
+        profile2 = Profile()
+        profile2.class_rank = 2
+        assert matching(profile1, profile2) == (80 / 90) * 100
+
+    def test_wrong_major(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(5*1)=80
+        profile1 = Profile()
+        profile1.major = "CS"
+        profile2 = Profile()
+        profile2.major = "Arch"
+        assert matching(profile1, profile2) == (85 / 90) * 100
+
+    def test_wrong_politics(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(5*1)=80
+        profile1 = Profile()
+        profile1.politics = "Moderate"
+        profile2 = Profile()
+        profile2.politics = "Conservative"
+        assert matching(profile1, profile2) == (85 / 90) * 100
+
+    def test_social_factor_1_off(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(20-20*(4-|2-1|)/4)=90-(20-20*3/4) = 85
+        profile1 = Profile()
+        profile1.social_factor = 1.0
+
+        profile2 = Profile()
+        profile2.social_factor = 2.0
+        assert matching(profile1, profile2) == (85.0 / 90.0) * 100.0
+
+    def test_social_factor_3_off(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(20-20*(4-|4-1|)/4)=90-(20-20*1/4) = 75
+        profile1 = Profile()
+        profile1.social_factor = 1.0
+
+        profile2 = Profile()
+        profile2.social_factor = 4.0
+        assert matching(profile1, profile2) == (75.0 / 90.0) * 100.0
+
+
+    def test_tidiness_factor_1_off(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(15-15*(4-|2-1|)/4)=90-(15-15*3/4)
+        profile1 = Profile()
+        profile1.tidiness_factor = 1.0
+
+        profile2 = Profile()
+        profile2.tidiness_factor = 2.0
+        assert matching(profile1, profile2) == ((90.0-(15.0-15.0*3.0/4.0)) / 90.0) * 100.0
+
+    def test_tidiness_factor_4_off(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(15-15*(4-|5-1|)/4)=90-(15-0) = 75
+        profile1 = Profile()
+        profile1.tidiness_factor = 1.0
+
+        profile2 = Profile()
+        profile2.tidiness_factor = 5.0
+        assert matching(profile1, profile2) == (75 / 90.0) * 100.0
+
+    def test_party_factor_1_off(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(10-10*(4-|2-1|)/4)=90-(10-10*3/4) = 87.5
+        profile1 = Profile()
+        profile1.party_factor = 1.0
+
+        profile2 = Profile()
+        profile2.party_factor = 2.0
+        assert matching(profile1, profile2) == (87.5 / 90.0) * 100.0
+
+
+    def test_party_factor_2_off(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(10-10*(4-|3-1|)/4)=90-(10-10*2/4) = 85
+        profile1 = Profile()
+        profile1.party_factor = 1.0
+
+        profile2 = Profile()
+        profile2.party_factor = 3.0
+        assert matching(profile1, profile2) == (85.0 / 90.0) * 100.0
+
+    def test_guest_factor_1_off(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(5-5*(4-|2-1|)/4)=90-(5-5*3/4)
+        profile1 = Profile()
+        profile1.guest_factor = 1.0
+
+        profile2 = Profile()
+        profile2.guest_factor = 2.0
+        assert matching(profile1, profile2) == ((90.0-(5.0-5.0*3.0/4.0)) / 90.0) * 100.0
+
+    def test_guest_factor_3_off(self):
+        # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
+        # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 90
+        # total points/90*100
+        # total points = 90-(5-5*(4-|4-1|)/4)=90-(5-5*1/4)
+        profile1 = Profile()
+        profile1.guest_factor = 1.0
+
+        profile2 = Profile()
+        profile2.guest_factor = 4.0
+        assert matching(profile1, profile2) == ((90.0-(5.0-5.0*1.0/4.0)) / 90.0) * 100.0
+
+
+
     # will later make picture test for blank picture once that is working
 
     # userConfig tests from users.apps did not seem possible
