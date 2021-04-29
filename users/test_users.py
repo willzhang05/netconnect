@@ -1,5 +1,6 @@
 from django.test import TestCase
-from users.models import Profile, create_user_profile, save_user_profile
+from users.models import Profile, create_user_profile, save_user_profile, GENDER_CHOICES, \
+    CLASS_RANK_CHOICES, POLITICAL_VIEW_CHOICES
 from users.forms import UserForm, ProfileForm, RegisterForm
 from django.forms import ModelForm
 from django.contrib.auth.models import User
@@ -7,6 +8,8 @@ import datetime
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from users.matching import matching
+from users.apps import UsersConfig
+
 
 
 class ProfileSeleniumTestCase(TestCase):
@@ -165,9 +168,41 @@ class ProfileTestCase(TestCase):
         profile1 = Profile()
         assert profile1.match_enabled == False
 
+    def test_change_value_match_enabled(self):
+        profile1 = Profile()
+        profile1.match_enabled = True
+        assert profile1.match_enabled == True
+
     def test_default_value_min_match_percentage(self):
         profile1 = Profile()
         assert profile1.min_match_percentage == 75
+
+    def test_default_search_lat(self):
+        profile1 = Profile()
+        assert profile1.search_lat == None
+
+    def test_change_search_lat(self):
+        profile1 = Profile()
+        profile1.search_lat = 5.0
+        assert profile1.search_lat == 5.0
+
+    def test_default_search_lng(self):
+        profile1 = Profile()
+        assert profile1.search_lng == None
+
+    def test_change_search_lng(self):
+        profile1 = Profile()
+        profile1.search_lng = 5.0
+        assert profile1.search_lng == 5.0
+
+    def test_default_search_radius(self):
+        profile1 = Profile()
+        assert profile1.search_radius == 1.0
+
+    def test_change_search_radius(self):
+        profile1 = Profile()
+        profile1.search_radius = 5.0
+        assert profile1.search_radius == 5.0
 
     def test_change_first_name(self):
         form1 = User()
@@ -394,16 +429,16 @@ class ProfileTestCase(TestCase):
         profile2.guest_factor = 4.0
         assert matching(profile1, profile2) == ((90.0-(5.0-5.0*1.0/4.0)) / 90.0) * 100.0
 
+    def test_user_apps(self):
+        assert UsersConfig.name == 'users'
 
+    def test_models_field_gender(self):
+        assert GENDER_CHOICES ==(('F', 'Female'),('M', 'Male'),('O', 'Other'),('U', 'Prefer not to say'),)
 
-    # will later make picture test for blank picture once that is working
+    def test_models_field_class(self):
+        assert CLASS_RANK_CHOICES == (('1', 'First Year'),('2', 'Second Year'),('3', 'Third Year'),
+                                      ('4', 'Fourth Year'),('G', 'Graduate Student'),('U', 'Prefer not to say'),)
 
-    # userConfig tests from users.apps did not seem possible
-
-    # testing views did not seem possible directly. Would likely need to test manualy.
-
-    # testing admin, can test fieldsets, was not sure what they were.
-
-    # testing forms does not seem possible with the except of fields
-
-    # could not figure out a way to test get_photo_url from models or create_user_profile from models
+    def test_models_field_political(self):
+        assert POLITICAL_VIEW_CHOICES == (('L', 'Liberal'),('M', 'Moderate'),('C', 'Conservative'),
+                                          ('U', 'Prefer not to say'),)
