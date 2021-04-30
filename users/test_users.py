@@ -8,8 +8,9 @@ import datetime
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from users.matching import matching
+from users.models import Profile
 from users.apps import UsersConfig
-
+from django.db import models
 
 
 class ProfileSeleniumTestCase(TestCase):
@@ -442,3 +443,16 @@ class ProfileTestCase(TestCase):
     def test_models_field_political(self):
         assert POLITICAL_VIEW_CHOICES == (('L', 'Liberal'),('M', 'Moderate'),('C', 'Conservative'),
                                           ('U', 'Prefer not to say'),)
+
+    def test_str_username(self):
+        profile1 = Profile()
+        user1 = User()
+        profile1.user = user1
+        profile1.user.username = "johndoe"
+        assert str(profile1) == "johndoe"
+
+    def test_photo_url(self):
+        profile1 = Profile()
+        user1 = User()
+        profile1.user = user1
+        assert profile1.get_photo_url[37:48] == "default.jpg"
