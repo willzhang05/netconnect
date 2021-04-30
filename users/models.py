@@ -23,7 +23,8 @@ class Profile(models.Model):
     class_rank = models.CharField(
         max_length=1, choices=CLASS_RANK_CHOICES, default='U')
 
-    major = models.CharField(max_length=70, choices=MAJOR_CHOICES, default="UNKNOWN")
+    major = models.CharField(
+        max_length=70, choices=MAJOR_CHOICES, default="UNKNOWN")
     picture = models.ImageField(
         default='default.jpg', upload_to='profile_pictures')
     description = models.TextField(max_length=300, blank=True)

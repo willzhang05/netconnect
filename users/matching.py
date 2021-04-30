@@ -13,12 +13,14 @@ FACTOR_WEIGHTS = {
     'location': 10,
 }
 
+
 def search_location_overlap(a, b):
     if a.search_lat == b.search_lat and a.search_lng == b.search_lng:
         return True
-    
-    distance = geopy.distance.distance((a.search_lat, a.search_lng), (b.search_lat, b.search_lng)).miles
-    result_diff = (a.search_radius - b.search_radius)**2 
+
+    distance = geopy.distance.distance(
+        (a.search_lat, a.search_lng), (b.search_lat, b.search_lng)).miles
+    result_diff = (a.search_radius - b.search_radius)**2
     result_sum = (a.search_radius + b.search_radius)**2
     return result_diff < distance < result_sum
 
@@ -73,7 +75,7 @@ def matching(a, b):  # should take two profile objects, will return percentage m
 
     # location
     if a.search_lat and a.search_lng and a.search_radius and b.search_lat and b.search_lng and b.search_radius:
-        total_points += FACTOR_WEIGHTS['location'] * search_location_overlap(a, b)
-    
+        total_points += FACTOR_WEIGHTS['location'] * \
+            search_location_overlap(a, b)
 
     return (total_points / max_points) * 100

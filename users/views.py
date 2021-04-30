@@ -8,22 +8,37 @@ from .forms import UserForm, ProfileForm, RegisterForm
 from django.contrib.auth.models import User
 
 
+def get_profile_values(profile_form):
+    profile_values = []
+    for field in profile_form.fields:
+        field_name = str(field)
+        attr = 'get_{}_display'.format(field_name)
+        if hasattr(profile_form.instance, attr):
+            temp = getattr(profile_form.instance, attr)
+            result = temp()
+            profile_values.append((profile_form[field_name].label, result))
+        else:
+            profile_values.append(
+                (profile_form[field_name].label, str(profile_form[field_name].value())))
+    return profile_values
+
+
 @login_required
 def profile(request):
-    username = request.user.get_username()
     user_form = UserForm(instance=request.user)
     profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'username': username, })
+    profile_values = get_profile_values(profile_form)
+    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'profile_values': profile_values})
 
 
 @login_required
 def view_other_profile(request, username):
     user = User.objects.get(username=username)
-    username = user.get_username()
     user_form = UserForm(instance=user)
     profile_form = ProfileForm(instance=user.profile)
     is_other = request.user != user
-    return render(request, 'profile.html', {'is_other': is_other, 'user_form': user_form, 'profile_form': profile_form, 'username': username, })
+    profile_values = get_profile_values(profile_form)
+    return render(request, 'profile.html', {'is_other': is_other, 'user_form': user_form, 'profile_form': profile_form, 'profile_values': profile_values})
 
 
 @login_required

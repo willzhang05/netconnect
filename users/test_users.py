@@ -37,7 +37,7 @@ class ProfileTestCase(TestCase):
 
     def test_default_value_major(self):
         profile1 = Profile()
-        assert profile1.major == ""
+        assert profile1.major == "UNKNOWN"
 
     def test_change_value_major(self):
         profile2 = Profile()
