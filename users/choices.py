@@ -95,5 +95,5 @@ MAJOR_CHOICES = (
     ('WOMEN_GENDER_AND_SEXUALITY', 'Women, Gender & Sexuality'),
     ('YOUTH_AND_SOCIAL_INNOVATION', 'Youth & Social Innovation'),
     ('OTHER', 'Other'),
-    ('UNDECIDED', 'Undecided'),
+    ('UNKNOWN', 'Undecided/Unknown'),
 )
