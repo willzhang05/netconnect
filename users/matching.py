@@ -17,8 +17,10 @@ def search_location_overlap(a, b):
     if a.search_lat == b.search_lat and a.search_lng == b.search_lng:
         return True
     
-    distance = geopy.distance.distance((a.search_lat, a.search_lng), (b.search_lat, b.search_lng))
-    return (a.search_radius - b.search_radius)**2 <= distance <= (a.search_radius + b.search_radius)**2
+    distance = geopy.distance.distance((a.search_lat, a.search_lng), (b.search_lat, b.search_lng)).miles
+    result_diff = (a.search_radius - b.search_radius)**2 
+    result_sum = (a.search_radius + b.search_radius)**2
+    return result_diff < distance < result_sum
 
 
 def matching(a, b):  # should take two profile objects, will return percentage match between two users

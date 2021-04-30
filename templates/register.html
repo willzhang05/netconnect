@@ -25,46 +25,58 @@
                     </a>
                 </div>
                 {% for field in form %}
-                    <div class="card slide" id="slide{{ forloop.counter0 }}">
-                        <div class="form-group question-body">
-                            <label for="{{ field.label }}" class="question-label">{{ field.label }}</label>
-                            {{ field|add_class:'form-control' }}
-                            {% if field.field.widget.input_type == 'range' %}
-                                <span class="range-label-wrapper">
-                                    <label for="{{ field.label }}" class="range-label">{{ field.field.widget.attrs.min }}</label>
-                                    <label for="{{ field.label }}" class="range-label">{{ field.field.widget.attrs.max }}</label>
-                                </span>
-                            {% endif %}
-                            {% if field.help_text %}
-                                <small class="form-text text-muted">{{ field.help_text|safe }}</small>
-                            {% endif %}
-                            {{ field.errors }}
-                        </div>
-                        <div class="form-group">
-                            {% if forloop.first %}
-                                <a href="#slide-intro" class="change-slide">
-                                    <button class="btn btn-outline-primary" type="button">
-                                        Back
-                                    </button>
-                                </a>
+                <div class="card slide" id="slide{{ forloop.counter0 }}">
+                    <div class="form-group question-body">
+                        <label for="{{ field.label }}" class="question-label">{{ field.label }}</label>
+                        {{ field|add_class:'form-control' }}
+                        {% if field.field.widget.input_type == 'range' %}
+                        <span class="range-label-wrapper">
+                            {% if field.name == 'min_match_percentage' %}
+                            {% with ''|center:10 as range %}
+                            {% for _ in range %}
+                            <label for="{{ field.label }}" class="range-label">{{ forloop.counter0|add:field.field.widget.attrs.min|mul:10 }}%</label>
+                            {% endfor %}
+                            {% endwith %}
                             {% else %}
-                                <a href="#slide{{ forloop.counter0 |sub:1 }}" class="change-slide">
-                                    <button class="btn btn-outline-primary" type="button">
-                                        Back
-                                    </button>
-                                </a>
+                            {% with ''|center:field.field.widget.attrs.max as range %}
+                            {% for _ in range %}
+                            <label for="{{ field.label }}" class="range-label">{{ forloop.counter0|add:field.field.widget.attrs.min }}</label>
+                            {% endfor %}
+                            {% endwith %}
+
                             {% endif %}
-                            {% if forloop.last %}
-                                <button class="btn btn-outline-primary" type="submit">Register</button>
-                            {% else %}
-                                <a href="#slide{{ forloop.counter }}" class="change-slide">
-                                    <button class="btn btn-outline-primary" type="button">
-                                        Next
-                                    </button>
-                                </a>
-                            {% endif %}
-                        </div>
+                        </span>
+                        {% endif %}
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                        {% endif %}
+                        {{ field.errors }}
                     </div>
+                    <div class="form-group">
+                        {% if forloop.first %}
+                        <a href="#slide-intro" class="change-slide">
+                            <button class="btn btn-outline-primary" type="button">
+                                Back
+                            </button>
+                        </a>
+                        {% else %}
+                        <a href="#slide{{ forloop.counter0 |sub:1 }}" class="change-slide">
+                            <button class="btn btn-outline-primary" type="button">
+                                Back
+                            </button>
+                        </a>
+                        {% endif %}
+                        {% if forloop.last %}
+                        <button class="btn btn-outline-primary" type="submit">Register</button>
+                        {% else %}
+                        <a href="#slide{{ forloop.counter }}" class="change-slide">
+                            <button class="btn btn-outline-primary" type="button">
+                                Next
+                            </button>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </div>

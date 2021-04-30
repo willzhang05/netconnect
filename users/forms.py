@@ -53,6 +53,9 @@ class RegisterForm(ModelForm):
             'min_match_percentage': 'What would you like your minimum match percentage to be?',
         }
         widgets = {
+            'roommates': NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
+            'semesters': NumberInput(attrs={'type': 'range', 'min': 1, 'max': 8}),
+            'social_factor': NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
             'social_factor': NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
             'tidiness_factor': NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
             'party_factor':  NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),

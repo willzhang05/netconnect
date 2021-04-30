@@ -8,30 +8,7 @@ from django.dispatch import receiver
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 from .matching import matching
-
-
-GENDER_CHOICES = (
-    ('F', 'Female'),
-    ('M', 'Male'),
-    ('O', 'Other'),
-    ('U', 'Prefer not to say'),
-)
-
-CLASS_RANK_CHOICES = (
-    ('1', 'First Year'),
-    ('2', 'Second Year'),
-    ('3', 'Third Year'),
-    ('4', 'Fourth Year'),
-    ('G', 'Graduate Student'),
-    ('U', 'Prefer not to say'),
-)
-
-POLITICAL_VIEW_CHOICES = (
-    ('L', 'Liberal'),
-    ('M', 'Moderate'),
-    ('C', 'Conservative'),
-    ('U', 'Prefer not to say'),
-)
+from .choices import *
 
 
 class Profile(models.Model):
@@ -46,7 +23,7 @@ class Profile(models.Model):
     class_rank = models.CharField(
         max_length=1, choices=CLASS_RANK_CHOICES, default='U')
 
-    major = models.CharField(max_length=50, blank=True)
+    major = models.CharField(max_length=70, choices=MAJOR_CHOICES, blank=True)
     picture = models.ImageField(
         default='default.jpg', upload_to='profile_pictures')
     description = models.TextField(max_length=300, blank=True)
