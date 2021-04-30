@@ -18,4 +18,3 @@ class ChatTestCase(TestCase):
     def test_asgi_field(self):
         print (application_asgi)
         assert application_asgi != None
-
