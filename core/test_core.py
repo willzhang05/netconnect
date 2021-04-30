@@ -1166,7 +1166,7 @@ class ProfileSeleniumTestCase(TestCase):
             # click on match (is the most similar user so since they are the same they should both be 100%)
             browser.find_element_by_xpath(
                 "//li[@class='list-group-item match-item'][1]/div[@class='match-info'][4]/a/button[@class='btn btn-outline-secondary']").click()
-            textother = browser.find_element_by_xpath("//div[@id='chat-messages']").text
+            testother = browser.find_element_by_xpath("//div[@id='chat-messages']").text
 
             browser.find_element_by_xpath("//button[@id='chat-message-submit']").click()
             textafter = browser.find_element_by_xpath("//div[@id='chat-messages']").text
@@ -1181,4 +1181,4 @@ class ProfileSeleniumTestCase(TestCase):
 
             assert (textbefore != textafter) and (textafter == testother) and (user2_url == "https://netconnect.herokuapp.com/chat/testu2522-tu380686") and (user1_url == "https://netconnect.herokuapp.com/chat/tu380686-testu2522")
         except:
-            assert True
+            assert False
