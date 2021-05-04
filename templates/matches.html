@@ -19,7 +19,7 @@
                 {% if matches|length == 0 %}
                     You have no matches!
                 {% endif %}
-                {% for match, match_pct in matches.items %}
+                {% for match, match_pct in matches %}
                     <li class="list-group-item match-item">
                         <div class="match-picture-container">
                             <a href="{% url 'view_other_profile' username=match.user.username %}">
