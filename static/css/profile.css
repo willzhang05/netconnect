@@ -27,3 +27,10 @@
     background: transparent;
     border: none;
 }
+
+@media screen and (max-width: 1100px) {
+    #profile-picture {
+        width: 25vw;
+        height: 25vw;
+    }
+}
