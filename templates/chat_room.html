@@ -11,7 +11,9 @@
 {% block content %}
 <div id="content">
     <div class="card">
-
+        <a href="{% url 'view_other_profile' username=other.profile.user.username %}">
+            <button class="btn btn-outline-primary">View {{ other.profile.user.get_full_name }} {{ other }}'s Profile</button>
+        </a>
         <form id="chat-wrapper" action="#">
             <div class="form-group">
                 <h4>
@@ -19,6 +21,7 @@
                 </h4>
                 <small class="has-text-grey-light">Your username: {{ user.username }}</small>
             </div>
+            
             <div id="chat-messages" class="form-group">
                 {% for m in messages %}
                     <b>{{ m.username }}</b>: {{ m.content }}<br>
