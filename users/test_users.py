@@ -1,6 +1,5 @@
 from django.test import TestCase
-from users.models import Profile, create_user_profile, save_user_profile, GENDER_CHOICES, \
-    CLASS_RANK_CHOICES, POLITICAL_VIEW_CHOICES
+from users.models import *
 from users.forms import UserForm, ProfileForm, RegisterForm
 from django.forms import ModelForm
 from django.contrib.auth.models import User
@@ -159,12 +158,10 @@ class ProfileTestCase(TestCase):
                                     'social_factor', 'tidiness_factor', 'party_factor',
                                     'guest_factor', 'min_match_percentage')
 
-
-
     def test_default_model_RegisterForm(self):
         form = RegisterForm(ModelForm)
         assert form.Meta.model == Profile
-    
+
     def test_default_value_match_enabled(self):
         profile1 = Profile()
         assert profile1.match_enabled == False
@@ -209,7 +206,7 @@ class ProfileTestCase(TestCase):
         form1 = User()
         form1.first_name = "John"
         assert form1.first_name == "John"
-    
+
     def test_change_last_name(self):
         form1 = User()
         form1.last_name = "Doe"
@@ -227,12 +224,12 @@ class ProfileTestCase(TestCase):
         # total points = 100-0=100
         profile1 = Profile()
         profile2 = Profile()
-        assert matching(profile1,profile2) == 90
+        assert matching(profile1, profile2) == 90
 
     def test_location(self):
         profile1 = Profile()
         profile2 = Profile()
-        
+
         profile1.search_lat = 1
         profile1.search_lng = 1
         profile1.search_radius = 1
@@ -240,12 +237,12 @@ class ProfileTestCase(TestCase):
         profile2.search_lng = 1
         profile2.search_radius = 1
 
-        assert matching(profile1,profile2) == 100
+        assert matching(profile1, profile2) == 100
 
     def test_location_different(self):
         profile1 = Profile()
         profile2 = Profile()
-        
+
         profile1.search_lat = 2
         profile1.search_lng = 1
         profile1.search_radius = 5
@@ -253,7 +250,7 @@ class ProfileTestCase(TestCase):
         profile2.search_lng = 1
         profile2.search_radius = 5
 
-        assert matching(profile1,profile2) == 100
+        assert matching(profile1, profile2) == 100
 
     def test_matching_1_off_roomate(self):
         # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
@@ -382,7 +379,6 @@ class ProfileTestCase(TestCase):
         profile2.social_factor = 4.0
         assert matching(profile1, profile2) == (75.0 / 100) * 100.0
 
-
     def test_tidiness_factor_1_off(self):
         # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
         # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 100
@@ -393,7 +389,8 @@ class ProfileTestCase(TestCase):
 
         profile2 = Profile()
         profile2.tidiness_factor = 2.0
-        assert matching(profile1, profile2) == ((100.0-(10.0+15.0-15.0*3.0/4.0)) / 100) * 100.0
+        assert matching(profile1, profile2) == (
+            (100.0-(10.0+15.0-15.0*3.0/4.0)) / 100) * 100.0
 
     def test_tidiness_factor_4_off(self):
         # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
@@ -419,7 +416,6 @@ class ProfileTestCase(TestCase):
         profile2.party_factor = 2.0
         assert matching(profile1, profile2) == (87.5 / 100) * 100.0
 
-
     def test_party_factor_2_off(self):
         # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
         # tidiness_factor (15) + party_factor (10) + guest_factor (5)) = 100
@@ -442,7 +438,8 @@ class ProfileTestCase(TestCase):
 
         profile2 = Profile()
         profile2.guest_factor = 2.0
-        assert matching(profile1, profile2) == ((100.0-(10.0+5.0-5.0*3.0/4.0)) / 100) * 100.0
+        assert matching(profile1, profile2) == (
+            (100.0-(10.0+5.0-5.0*3.0/4.0)) / 100) * 100.0
 
     def test_guest_factor_3_off(self):
         # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
@@ -454,20 +451,22 @@ class ProfileTestCase(TestCase):
 
         profile2 = Profile()
         profile2.guest_factor = 4.0
-        assert matching(profile1, profile2) == ((100.0-(10.0+5.0-5.0*1.0/4.0)) / 100) * 100.0
+        assert matching(profile1, profile2) == (
+            (100.0-(10.0+5.0-5.0*1.0/4.0)) / 100) * 100.0
 
     def test_user_apps(self):
         assert UsersConfig.name == 'users'
 
     def test_models_field_gender(self):
-        assert GENDER_CHOICES ==(('F', 'Female'),('M', 'Male'),('O', 'Other'),('U', 'Prefer not to say'),)
+        assert GENDER_CHOICES == (
+            ('F', 'Female'), ('M', 'Male'), ('O', 'Other'), ('U', 'Prefer not to say'),)
 
     def test_models_field_class(self):
-        assert CLASS_RANK_CHOICES == (('1', 'First Year'),('2', 'Second Year'),('3', 'Third Year'),
-                                      ('4', 'Fourth Year'),('G', 'Graduate Student'),('U', 'Prefer not to say'),)
+        assert CLASS_RANK_CHOICES == (('1', 'First Year'), ('2', 'Second Year'), ('3', 'Third Year'),
+                                      ('4', 'Fourth Year'), ('G', 'Graduate Student'), ('U', 'Prefer not to say'),)
 
     def test_models_field_political(self):
-        assert POLITICAL_VIEW_CHOICES == (('L', 'Liberal'),('M', 'Moderate'),('C', 'Conservative'),
+        assert POLITICAL_VIEW_CHOICES == (('L', 'Liberal'), ('M', 'Moderate'), ('C', 'Conservative'),
                                           ('U', 'Prefer not to say'),)
 
     def test_str_username(self):
