@@ -48,4 +48,5 @@ def marker(request):
 
 @login_required
 def map(request):
-    return render(request, 'map.html')
+    location_set = bool(request.user.profile.search_lat) and bool(request.user.profile.search_lng)
+    return render(request, 'map.html', {'location_set': location_set})

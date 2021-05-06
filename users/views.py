@@ -55,7 +55,10 @@ def register(request):
             instance.completed_registration = True
             instance.match_enabled = True
             instance.save()
-            return redirect('matches')
+            if instance.search_lat == None or instance.search_lng == None or instance.search_radius == None:
+                return redirect('map')
+            else:
+                return redirect('matches')
         else:
             messages.error(request, 'Please correct the error below.')
     else:

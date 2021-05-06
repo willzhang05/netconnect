@@ -58,12 +58,13 @@ var searchMarker = null;
 var searchCircle = null;
 var enableSetMarker = false;
 var enableSetRadius = false;
+var bufferedRadius = null;
 
 var dragStart = null;
 
-function setCircle(coords) {
+function setCircle(coords, radius=0) {
     if (searchCircle == null) {
-        searchCircle = new L.circle(coords, 0).addTo(map);
+        searchCircle = new L.circle(coords, radius).addTo(map);
 
         searchCircle.on('mouseover', function() {
             if (enableSetRadius) {
@@ -84,6 +85,9 @@ function setCircle(coords) {
 function setMarker(coords) {
     if (searchMarker == null) {
         searchMarker = new L.Marker(coords).addTo(map);
+        if (bufferedRadius != null) {
+            setCircle(coords, bufferedRadius);
+        }
 
         searchMarker.on('mouseover', function() {
             if (enableSetMarker) {
@@ -150,6 +154,10 @@ map.on("mousemove", function(e) {
 });
 
 map.on("mouseup", function(e) {
+    if (enableSetMarker) {
+        updateAPI();
+        enableSetMarker = false;
+    }
     if (dragStart != null && enableSetRadius) {
         updateAPI();
         enableSetRadius = false;
@@ -162,8 +170,6 @@ map.on("mousedown", function(e) {
         if (searchCircle != null) {
             searchCircle.setLatLng(e.latlng);
         }
-        updateAPI();
-        enableSetMarker = false;
     }
 });
 
@@ -185,14 +191,16 @@ function setPosition(position) {
 
 function setData(data) {
     console.log(data);
+    bufferedRadius = data.radius * 1609;
     if (data.lat != null && data.lng != null) {
         setMarker([data.lat, data.lng]);
         if (data.radius != null) {
             map.setView(L.latLng(data.lat, data.lng));
             setCircle(L.latLng(data.lat, data.lng))
-            searchCircle.setRadius((data.radius * 1609).toFixed(2));
+            searchCircle.setRadius(bufferedRadius.toFixed(2));
         }
     }
+
 }
 
 fetch('/marker/')
