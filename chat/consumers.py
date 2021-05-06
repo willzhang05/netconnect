@@ -1,7 +1,18 @@
+'''***************************************************************************************
+*  REFERENCES
+*  Title: chatty
+*  Author: SteinOveHelset
+*  Date: Mar/28/21
+*  URL: https://github.com/SteinOveHelset/chatty
+*  URL2: https://www.youtube.com/watch?v=wLwu1NqU1rE
+*
+*  Title: chatty
+*
+***************************************************************************************'''
+
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
-
 from .models import Message
 
 
