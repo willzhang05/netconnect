@@ -1,3 +1,31 @@
+#chat-header-wrapper {
+    display: flex;
+    flex-direction: row;
+    color: black;
+}
+
+#chat-wrapper a:hover {
+    text-decoration: none;
+}
+
+#chat-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 0 0 0 1rem;
+}
+
+#chat-header h3 {
+    margin: 0;
+    font-weight: bold;
+}
+
+#chat-picture {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 0.25rem;
+}
+
 #chat-messages {
     min-height: 25vh;
     max-height: 25vh;
