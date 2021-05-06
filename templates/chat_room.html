@@ -11,14 +11,22 @@
 {% block content %}
 <div id="content">
     <div class="card">
-
         <form id="chat-wrapper" action="#">
-            <div class="form-group">
-                <h4>
-                    Chat: {{ other.profile.user.get_full_name }} ({{ other }})
-                </h4>
-                <small class="has-text-grey-light">Your username: {{ user.username }}</small>
-            </div>
+            <a href="{% url 'view_other_profile' username=other.profile.user.username %}">
+                <div id="chat-header-wrapper">
+                    <div id="chat-picture">
+                        <img class="img-fluid" src="{{ other.profile.get_photo_url }}" alt="Profile picture"/>
+                    </div>
+                    <div id="chat-header">
+                        <h3>
+                            {{ other.profile.user.get_full_name }}
+                        </h3>
+                        <small class="has-text-grey-light">{{ other.profile.user.username }}</small>
+                    </div>
+                </div>
+            </a>
+            <hr/>
+            
             <div id="chat-messages" class="form-group">
                 {% for m in messages %}
                     <b>{{ m.username }}</b>: {{ m.content }}<br>
