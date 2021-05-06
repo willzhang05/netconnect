@@ -22,7 +22,7 @@ Roommate Connector's matching algorithm helps to find you compatible roommates b
 
 * The environment should activate, with a "(env)" in front of the PS1 (shell prompt)
 
-* `pip3 install -r requirements.txt` will install the required packages
+* `pip3 install -r requirements.txt` will install the required packages. If this gives an error on Mac, comment out `django-heroku` and `psycopg2-binary`
 
 * When models are updated, make migrations with
 `python3 manage.py makemigrations`
