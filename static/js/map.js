@@ -185,9 +185,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-/*if (window.navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(setPosition);
-}*/
 
 function setPosition(position) {
     const latitude = position.coords.latitude;
@@ -205,8 +202,12 @@ function setData(data) {
             setCircle(L.latLng(data.lat, data.lng))
             searchCircle.setRadius(bufferedRadius.toFixed(2));
         }
+    } else {
+        if (window.navigator.geolocation) {
+            console.log("Setting to current location.");
+            navigator.geolocation.getCurrentPosition(setPosition);
+        }
     }
-
 }
 
 fetch('/marker/')
