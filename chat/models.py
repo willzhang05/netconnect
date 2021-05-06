@@ -1,3 +1,15 @@
+'''***************************************************************************************
+*  REFERENCES
+*  Title: chatty
+*  Author: SteinOveHelset
+*  Date: Mar/28/21
+*  URL: https://github.com/SteinOveHelset/chatty
+*  URL2: https://www.youtube.com/watch?v=wLwu1NqU1rE
+*
+*  Title: chatty
+*
+***************************************************************************************'''
+
 from django.db import models
 
 

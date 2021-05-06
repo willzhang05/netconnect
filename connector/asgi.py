@@ -1,12 +1,14 @@
-"""
-ASGI config for connector project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/3.1/howto/deployment/asgi/
-"""
-
+'''***************************************************************************************
+*  REFERENCES
+*  Title: chatty
+*  Author: SteinOveHelset
+*  Date: Mar/28/21
+*  URL: https://github.com/SteinOveHelset/chatty
+*  URL2: https://www.youtube.com/watch?v=wLwu1NqU1rE
+*
+*  Title: chatty
+*
+***************************************************************************************'''
 
 import os
 
