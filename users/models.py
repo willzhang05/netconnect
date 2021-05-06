@@ -47,7 +47,8 @@ class Profile(models.Model):
         default=3, validators=[MaxValueValidator(5), MinValueValidator(1)])
 
     min_match_percentage = models.FloatField(
-        default=75, validators=[MaxValueValidator(100.0), MinValueValidator(0.0)])
+        default=75, validators=[
+            MaxValueValidator(100.0), MinValueValidator(0.0)])
 
     match_enabled = models.BooleanField(default=False)
 
@@ -68,7 +69,9 @@ class Profile(models.Model):
 
             if self.match_enabled:
                 match_profiles = Profile.objects.filter(
-                    completed_registration=True, match_enabled=True).exclude(user=self.user)
+                    completed_registration=True,
+                    match_enabled=True).exclude(
+                    user=self.user)
 
                 for profile in match_profiles:
                     score = matching(self, profile)

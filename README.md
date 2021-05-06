@@ -1,11 +1,13 @@
 # Roommate Connector - Team B-20 
 Roommate Connector's matching algorithm helps to find you compatible roommates based on a variety of factors. 
-## Helpful Tips! ##
-- In chat rooms, you can click on a person's profile above the chat to visit their profile page.
-- On the map, right click and select to either set the pin somewhere or to change the radius.
-- You can remove all of your matches by deselecting the match enabled option in your profile. You will be removed from everyone else's view as well.
-- Find your profile in the top right of the app!
-- Matches are sorted by their percentage match with you.
+
+## Usage ##
+* In chat rooms, you can click on a person's profile above the chat to visit their profile page.
+* On the map, right click and select to either set the pin somewhere or to change the radius.
+* You can remove all of your matches by deselecting the match enabled option in your profile. You will be removed from everyone else's matches as well.
+* Find your profile in the top right of the page!
+* Roommate matches are sorted by their percent compatibility with you.
+
 ## Development ##
 
 * Install virtualenv

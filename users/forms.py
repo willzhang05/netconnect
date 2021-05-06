@@ -58,7 +58,7 @@ class RegisterForm(ModelForm):
             'social_factor': NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
             'social_factor': NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
             'tidiness_factor': NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
-            'party_factor':  NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
-            'guest_factor':  NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
-            'min_match_percentage':  NumberInput(attrs={'type': 'range', 'min': 0, 'max': 100, 'step': 0.1}),
+            'party_factor': NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
+            'guest_factor': NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5}),
+            'min_match_percentage': NumberInput(attrs={'type': 'range', 'min': 0, 'max': 100, 'step': 0.1}),
         }

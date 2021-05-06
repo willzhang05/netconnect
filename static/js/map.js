@@ -12,6 +12,7 @@ window.onload = function() {
     }
 }
 
+// From https://stackoverflow.com/a/43208163
 function getDistance(origin, destination) {
     // return distance in meters
     var lon1 = toRadian(origin[1]),

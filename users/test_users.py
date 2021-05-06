@@ -139,12 +139,24 @@ class ProfileTestCase(TestCase):
 
     def test_default_fields_ProfileForm(self):
         form = ProfileForm(ModelForm)
-        assert form.Meta.fields == ('gender', 'class_rank', 'major',
-                                    'picture', 'description', 'roommates',
-                                    'semesters', 'politics',
-                                    'social_factor', 'tidiness_factor', 'party_factor',
-                                    'guest_factor', 'min_match_percentage',
-                                    'match_enabled', 'search_lat', 'search_lng', 'search_radius')
+        assert form.Meta.fields == (
+            'gender',
+            'class_rank',
+            'major',
+            'picture',
+            'description',
+            'roommates',
+            'semesters',
+            'politics',
+            'social_factor',
+            'tidiness_factor',
+            'party_factor',
+            'guest_factor',
+            'min_match_percentage',
+            'match_enabled',
+            'search_lat',
+            'search_lng',
+            'search_radius')
 
     def test_default_model_ProfileForm(self):
         form = ProfileForm(ModelForm)
@@ -152,11 +164,20 @@ class ProfileTestCase(TestCase):
 
     def test_default_fields_RegisterForm(self):
         form = RegisterForm(ModelForm)
-        assert form.Meta.fields == ('gender', 'class_rank', 'major',
-                                    'picture', 'description', 'roommates',
-                                    'semesters', 'politics',
-                                    'social_factor', 'tidiness_factor', 'party_factor',
-                                    'guest_factor', 'min_match_percentage')
+        assert form.Meta.fields == (
+            'gender',
+            'class_rank',
+            'major',
+            'picture',
+            'description',
+            'roommates',
+            'semesters',
+            'politics',
+            'social_factor',
+            'tidiness_factor',
+            'party_factor',
+            'guest_factor',
+            'min_match_percentage')
 
     def test_default_model_RegisterForm(self):
         form = RegisterForm(ModelForm)
@@ -169,7 +190,7 @@ class ProfileTestCase(TestCase):
     def test_change_value_match_enabled(self):
         profile1 = Profile()
         profile1.match_enabled = True
-        assert profile1.match_enabled == True
+        assert profile1.match_enabled
 
     def test_default_value_min_match_percentage(self):
         profile1 = Profile()
@@ -177,7 +198,7 @@ class ProfileTestCase(TestCase):
 
     def test_default_search_lat(self):
         profile1 = Profile()
-        assert profile1.search_lat == None
+        assert profile1.search_lat is None
 
     def test_change_search_lat(self):
         profile1 = Profile()
@@ -186,7 +207,7 @@ class ProfileTestCase(TestCase):
 
     def test_default_search_lng(self):
         profile1 = Profile()
-        assert profile1.search_lng == None
+        assert profile1.search_lng is None
 
     def test_change_search_lng(self):
         profile1 = Profile()
@@ -261,7 +282,7 @@ class ProfileTestCase(TestCase):
         profile1.roommates = 1
         profile2 = Profile()
         profile2.roommates = 2
-        assert matching(profile1, profile2) == (85/100)*100
+        assert matching(profile1, profile2) == (85 / 100) * 100
 
     def test_matching_3_off_roomate(self):
         # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
@@ -272,7 +293,7 @@ class ProfileTestCase(TestCase):
         profile1.roommates = 1
         profile2 = Profile()
         profile2.roommates = 4
-        assert matching(profile1, profile2) == (80/100)*100
+        assert matching(profile1, profile2) == (80 / 100) * 100
 
     def test_matching_1_off_semesters(self):
         # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
@@ -283,7 +304,7 @@ class ProfileTestCase(TestCase):
         profile1.semesters = 1
         profile2 = Profile()
         profile2.semesters = 2
-        assert matching(profile1, profile2) == (85/100)*100
+        assert matching(profile1, profile2) == (85 / 100) * 100
 
     def test_matching_3_off_semesters(self):
         # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
@@ -294,7 +315,7 @@ class ProfileTestCase(TestCase):
         profile1.semesters = 1
         profile2 = Profile()
         profile2.semesters = 4
-        assert matching(profile1, profile2) == (80/100)*100
+        assert matching(profile1, profile2) == (80 / 100) * 100
 
     def test_matching_2_off_roomates_and_1_semesters(self):
         # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
@@ -307,7 +328,7 @@ class ProfileTestCase(TestCase):
         profile2 = Profile()
         profile2.semesters = 3
         profile2.roommates = 3
-        assert matching(profile1, profile2) == (80/100)*100
+        assert matching(profile1, profile2) == (80 / 100) * 100
 
     def test_matching_2_off_roomates_and_3_semesters(self):
         # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
@@ -320,7 +341,7 @@ class ProfileTestCase(TestCase):
         profile2 = Profile()
         profile2.semesters = 4
         profile2.roommates = 3
-        assert matching(profile1, profile2) == (75/100)*100
+        assert matching(profile1, profile2) == (75 / 100) * 100
 
     def test_wrong_class_rank(self):
         # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
@@ -390,7 +411,7 @@ class ProfileTestCase(TestCase):
         profile2 = Profile()
         profile2.tidiness_factor = 2.0
         assert matching(profile1, profile2) == (
-            (100.0-(10.0+15.0-15.0*3.0/4.0)) / 100) * 100.0
+            (100.0 - (10.0 + 15.0 - 15.0 * 3.0 / 4.0)) / 100) * 100.0
 
     def test_tidiness_factor_4_off(self):
         # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
@@ -439,7 +460,7 @@ class ProfileTestCase(TestCase):
         profile2 = Profile()
         profile2.guest_factor = 2.0
         assert matching(profile1, profile2) == (
-            (100.0-(10.0+5.0-5.0*3.0/4.0)) / 100) * 100.0
+            (100.0 - (10.0 + 5.0 - 5.0 * 3.0 / 4.0)) / 100) * 100.0
 
     def test_guest_factor_3_off(self):
         # (class_rank (10) + major (5) + roomates (10) + semesters (10) + politics (5) + social_factor (20)
@@ -452,7 +473,7 @@ class ProfileTestCase(TestCase):
         profile2 = Profile()
         profile2.guest_factor = 4.0
         assert matching(profile1, profile2) == (
-            (100.0-(10.0+5.0-5.0*1.0/4.0)) / 100) * 100.0
+            (100.0 - (10.0 + 5.0 - 5.0 * 1.0 / 4.0)) / 100) * 100.0
 
     def test_user_apps(self):
         assert UsersConfig.name == 'users'
@@ -462,12 +483,24 @@ class ProfileTestCase(TestCase):
             ('F', 'Female'), ('M', 'Male'), ('O', 'Other'), ('U', 'Prefer not to say'),)
 
     def test_models_field_class(self):
-        assert CLASS_RANK_CHOICES == (('1', 'First Year'), ('2', 'Second Year'), ('3', 'Third Year'),
-                                      ('4', 'Fourth Year'), ('G', 'Graduate Student'), ('U', 'Prefer not to say'),)
+        assert CLASS_RANK_CHOICES == (
+            ('1',
+             'First Year'),
+            ('2',
+             'Second Year'),
+            ('3',
+             'Third Year'),
+            ('4',
+             'Fourth Year'),
+            ('G',
+             'Graduate Student'),
+            ('U',
+             'Prefer not to say'),
+        )
 
     def test_models_field_political(self):
-        assert POLITICAL_VIEW_CHOICES == (('L', 'Liberal'), ('M', 'Moderate'), ('C', 'Conservative'),
-                                          ('U', 'Prefer not to say'),)
+        assert POLITICAL_VIEW_CHOICES == (
+            ('L', 'Liberal'), ('M', 'Moderate'), ('C', 'Conservative'), ('U', 'Prefer not to say'),)
 
     def test_str_username(self):
         profile1 = Profile()

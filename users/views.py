@@ -19,7 +19,8 @@ def get_profile_values(profile_form):
             profile_values.append((profile_form[field_name].label, result))
         else:
             profile_values.append(
-                (profile_form[field_name].label, str(profile_form[field_name].value())))
+                (profile_form[field_name].label, str(
+                    profile_form[field_name].value())))
     return profile_values
 
 
@@ -28,7 +29,11 @@ def profile(request):
     user_form = UserForm(instance=request.user)
     profile_form = ProfileForm(instance=request.user.profile)
     profile_values = get_profile_values(profile_form)
-    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'profile_values': profile_values})
+    return render(request,
+                  'profile.html',
+                  {'user_form': user_form,
+                   'profile_form': profile_form,
+                   'profile_values': profile_values})
 
 
 @login_required
@@ -38,7 +43,12 @@ def view_other_profile(request, username):
     profile_form = ProfileForm(instance=user.profile)
     is_other = request.user != user
     profile_values = get_profile_values(profile_form)
-    return render(request, 'profile.html', {'is_other': is_other, 'user_form': user_form, 'profile_form': profile_form, 'profile_values': profile_values})
+    return render(request,
+                  'profile.html',
+                  {'is_other': is_other,
+                   'user_form': user_form,
+                   'profile_form': profile_form,
+                   'profile_values': profile_values})
 
 
 @login_required
@@ -55,7 +65,7 @@ def register(request):
             instance.completed_registration = True
             instance.match_enabled = True
             instance.save()
-            if instance.search_lat == None or instance.search_lng == None:
+            if instance.search_lat is None or instance.search_lng is None:
                 return redirect('map')
             else:
                 return redirect('matches')
@@ -83,4 +93,6 @@ def edit_profile(request):
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(
+        request, 'edit_profile.html', {
+            'user_form': user_form, 'profile_form': profile_form})
