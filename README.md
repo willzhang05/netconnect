@@ -7,6 +7,7 @@ Roommate Connector's matching algorithm helps to find you compatible roommates b
 * You can remove all of your matches by deselecting the match enabled option in your profile. You will be removed from everyone else's matches as well.
 * Find your profile in the top right of the page!
 * Roommate matches are sorted by their percent compatibility with you.
+* Setting your min match percentage changes the bottom threshold for matches - a higher number means you'll see fewer matches.
 
 ## Development ##
 
