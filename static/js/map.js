@@ -6,6 +6,12 @@ window.onkeydown = function(e) {
     pressedKeys[e.keyCode] = true;
 }
 
+window.onload = function() {
+    if (!LOCATION_SET) {
+        $("#get-started-map").modal({"show": true});
+    }
+}
+
 function getDistance(origin, destination) {
     // return distance in meters
     var lon1 = toRadian(origin[1]),

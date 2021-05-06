@@ -55,7 +55,7 @@ def register(request):
             instance.completed_registration = True
             instance.match_enabled = True
             instance.save()
-            if instance.search_lat == None or instance.search_lng == None or instance.search_radius == None:
+            if instance.search_lat == None or instance.search_lng == None:
                 return redirect('map')
             else:
                 return redirect('matches')
